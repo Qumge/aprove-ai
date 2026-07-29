@@ -1,0 +1,14 @@
+<% content_for :content_header do %>
+  <h1>
+    <%= t('sections.dynamic_reports.title') %>
+    <small><%= get_title params %></small>
+
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <%=link_to dynamic_reports_path do %>
+        <%= ui_icon 'layout-dashboard' %> <%= t('sections.dynamic_reports.title') %>
+      <% end %>
+    </li>
+  </ol>
+<% end %>

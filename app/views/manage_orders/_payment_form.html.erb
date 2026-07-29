@@ -1,0 +1,59 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label"></h4>
+  </div>
+  <%= simple_form_for(@payment_log, url: (update_payment_manage_order_path @order),html: {class: 'form-horizontal group_form', onkeydown: "if(event.keyCode==13)return false;"}, wrapper: :horizontal_form) do |f| %>
+    <div class="modal-body" >
+      <%= f.input :amount, label: '进度款' %>
+      <div class="form-group row optional required order_payment_at form-group-valid">
+        <label class="col-sm-3 col-form-label float optional" for="order_payment_at">回款时间<abbr title="required">*</abbr></label>
+        <div class="col-sm-9">
+          <div class="input-group date">
+            <div class="input-group-addon">
+              <%= ui_icon 'calendar-days' %>
+            </div>
+            <input type="text" class="form-control pull-right datepicker readonly" value='<%=simple_time @payment_log.payment_at %>' id="payment_log_payment_at" name="payment_log[payment_at]" readonly>
+          </div>
+          <div class="invalid-feedback"><%= @payment_log.errors.messages[:payment_at].first if @payment_log.errors.messages[:payment_at].present? %></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="modal-footer">
+    <%= button_tag '保存', class: 'btn btn-primary commit commit', data: { disable_with: '保存中' } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+  </div>
+</div>
+<script tye="text/javascript">
+    //ajax提交表单
+    $(function(){
+        $('.commit').click(function(){
+            showSpinner();
+            $.ajax({
+                type: "patch",
+                url: '<%= update_payment_manage_order_path @order%>',
+                data: $('.group_form').serialize(),
+                dataType: 'script',
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    //接收后台返回的结果
+                    //location.reload();
+                    if(data['status'] == 'success'){
+
+                    }
+                }
+            });
+
+        });
+        $('.datepicker').datepicker({
+            autoclose: true,
+            language: 'zh-cn'
+        });
+    });
+</script>
+

@@ -1,0 +1,109 @@
+<%= render 'projects/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box project-list-card">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('projects.all') %>
+          <% if can? :new, :projects %>
+            <small><%= link_to new_project_path, class: 'btn btn-primary btn-sm project-create' do %><%= ui_icon 'plus' %> <%= t('projects.new') %><% end %></small>
+          <% end %>
+        </h3>
+      </div>
+      <div class="box-tools">
+        <%= form_tag projects_path, method: :get do %>
+          <div class="input-group input-group-sm">
+            <div class="pull-right">
+              <div class="col-xs-6 col-md-4"><%= select_tag :project_status, options_for_select(Project::STATUS.keys.collect{|key| [t("projects.statuses.#{key}"), key]}, params[:project_status]), include_blank: t('projects.filters.all_statuses'), class: 'form-control' %></div>
+              <div class="col-xs-6 col-md-4"><%= select_tag :payment_percent, options_for_select([['0%~25%', 'danger'], ['25%~50%', 'warning'], ['50%~75%', 'blue'],['75%~95%', 'info'], ['95%+', 'green']], params[:payment_percent]), include_blank: t('projects.filters.all_payments'), class: 'form-control' %></div>
+
+              <div class="col-xs-6 col-md-4">
+                <input type="text" name="table_search" class="form-control" placeholder="<%= t('projects.filters.search') %>" value="<%= params[:table_search] %>">
+              </div>
+            </div>
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('projects.filters.submit') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered project-table">
+          <tr>
+            <th><%= t('projects.columns.payment') %></th>
+            <th><%= t('projects.columns.project') %></th>
+            <th><%= t('projects.columns.customer') %></th>
+            <th><%= t('projects.columns.owner') %></th>
+            <th><%= t('projects.columns.status') %></th>
+            <th></th>
+          </tr>
+          <% if @projects.present? %>
+          <% @projects.each do |project| %>
+            <tr>
+              <td>
+                <%= link_to show_money_project_path(project), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                <span class="label <%=get_color_class project %>"><%= format_float project.payment_percent %></span>
+                  <% end %>
+              </td>
+              </td>
+              <td><%= link_to project.name, project_path(project) %></td>
+              <td><%= project.company&.name %></td>
+              <td><%= project.owner.name %></td>
+              <td><%= project.status %></td>
+              <td>
+                <% if can? :edit, :projects %>
+                  <% if ['normal_admin', 'group_admin', 'super_admin'].include?(current_user.role&.desc) || ['wait', 'failed'].include?(project.project_status) %>
+                  <%= link_to  edit_project_path(project), class: 'btn btn-success btn-xs', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                    <%= ui_icon 'pencil' %><span><%= t('projects.actions.edit') %></span>
+                  <% end %>
+                  <% end %>
+                <% end %>
+                <% if can? :reapply, :projects %>
+                  <% if project.may_do_apply? %>
+                    <%= link_to 'JavaScript:void(0)', onclick: "apply_project(#{project.id})",class: 'btn btn-primary btn-xs' do  %>
+                      <%= ui_icon 'send' %><%= t('projects.actions.apply') %>
+                    <% end %>
+                  <% end %>
+                <%end %>
+              </td>
+            </tr>
+          <% end %>
+          <% else %>
+            <tr>
+              <td colspan="6" align="center"><%= t('projects.empty') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+        <%= paginate @projects, params: {payment_percent: params[:payment_percent], table_search: params[:table_search]}%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+<script type="text/javascript">
+  function apply_project(id){
+      if(confirm('<%= j t('projects.actions.confirm_apply') %>')){
+          showSpinner();
+          $.ajax({
+              type: 'POST',
+              url: '<%= reapply_projects_path %>',
+              data: {id: id},
+              dataType: 'script',
+              success: function (data) {
+
+              }
+          })
+      }
+
+  }
+
+</script>

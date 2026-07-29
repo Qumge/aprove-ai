@@ -1,0 +1,51 @@
+<header class="main-header">
+  <!-- Logo -->
+  <%= link_to projects_path, class: "logo" do %>
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini">A</span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><span class="brand-mark">A</span><b>Aprove</b><span>AI</span></span>
+  <% end %>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" title="<%= t('navigation.console') %>">
+      <%= ui_icon 'menu' %>
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+
+        <!-- Notifications: style can be found in dropdown.less -->
+        <li class="notifications-menu">
+<!--          <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+          <%= link_to notices_path, title: t('navigation.notifications') do %>
+            <%= ui_icon 'bell' %>
+            <% if @active_notices.present? %>
+            <span class="label label-warning"><%= @active_notices.size%></span>
+            <% end %>
+          <% end %>
+        </li>
+
+        <li class="dropdown">
+            <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-toggle", title: t('navigation.sign_out') do %>
+              <%= ui_icon 'log-out' %><span class="nav-action-label"><%= t('navigation.sign_out') %></span>
+            <% end %>
+        </li>
+
+        <li class="language-menu">
+          <div class="language-switch app-language" aria-label="<%= t('navigation.language') %>">
+            <%= link_to '中文', switch_locale_path('zh-CN'), class: ('active' if I18n.locale.to_s == 'zh-CN') %>
+            <%= link_to 'EN', switch_locale_path('en'), class: ('active' if I18n.locale.to_s == 'en') %>
+          </div>
+        </li>
+
+        <!-- Control Sidebar Toggle Button -->
+<!--        <li>-->
+<!--          <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,41 @@
+zh-CN:
+  activerecord:
+    errors: &errors
+      #        format: '%{attribute}%{message}'
+      #        format_with_full_message: '<b>%{attribute}</b>：%{message}'
+      messages:
+        too_long_validation: "最多只能有 %{max} 个字；你已经输入了 %{length} 个字。"
+        invalid_boolean: "无效布尔值。"
+        taken: "重复的内容或已经存在"
+        accepted: 必须被接受
+        blank: 不能为空
+        present: 必须为空
+        confirmation: "不匹配"
+        empty: 不能为空
+        equal_to: 必须等于 %{count}
+        even: 必须为奇数
+        exclusion: 被保留
+        greater_than: 必须大于 %{count}
+        greater_than_or_equal_to: 必须大于或等于 %{count}
+        has_already_been_used: "不能重复"
+        inclusion: 超出范围
+        invalid: 无效
+        is_invalid: "似乎不清楚，这是一个完整的句子？"
+        contains_censored_words: "包含了以下敏感词:%{censored_words}"
+        matches_censored_pattern: "包含了以下网站过滤系统中的敏感词%{censored_words}"
+        less_than: 必须小于 %{count}
+        less_than_or_equal_to: 必须小于等于 %{count}
+        not_a_number: 不是数字
+        not_an_integer: 必须是数字
+        odd: 必须是偶数
+        record_invalid: '验证失败：%{errors}'
+        restrict_dependent_destroy:
+          one: "因为独立的%{record}存在不能删除记录"
+          many: "因为独立的%{record}存在不能删除记录"
+        too_long:
+          other: 太长（最多 %{count} 个字）
+        too_short:
+          other: 太短（最少 %{count} 个字）
+        wrong_length:
+          other: 长度错误（应为 %{count} 个字）
+        other_than: "必须不为 %{count}"

@@ -1,0 +1,18 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "25967d9cb04061bdd7c545a0504004c37a128e55c91ed5bfe136cc9d28ff16fb",
+      "note": "The authenticated download route accepts only server-generated UUID keys validated by ObjectStorage::KEY_PATTERN."
+    },
+    {
+      "fingerprint": "afab025a6dc83cd5af444860c866511f62f94c51f775b2f7f8e151e314af9ed7",
+      "note": "The upload key is read from a short-lived signed MessageVerifier token and validated by ObjectStorage::KEY_PATTERN."
+    },
+    {
+      "fingerprint": "d3ddc51fc057101f0a7ebcc57cfe015e01d4a6ef546539e2195804d37aa76e0e",
+      "note": "The upload directory uses a server-generated UUID from a short-lived signed token; path traversal is rejected."
+    }
+  ],
+  "updated": "2026-07-29 19:27:00 +0800",
+  "brakeman_version": "8.0.5"
+}

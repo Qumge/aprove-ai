@@ -1,0 +1,54 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    订单
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <style>
+    .table > tbody > tr > td{
+      padding: 2px;
+    }
+  </style>
+  <span class="timeline-icon bg-orange"><%= ui_icon 'shopping-cart' %></span>
+
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <div class="box box-default collapsed-box" style="margin-bottom: 5px;">
+
+        <div class="box-header with-border">
+          <div class="pull-right">
+            <% if can? :order_import, :projects %>
+              <small><%= link_to '批量导入', order_import_project_path(@project) , class: 'font-a label bg-green', 'data-toggle' => "modal", 'data-target' => "#global-modal" if @project.can_do? :order %></small>
+            <% end %>
+            <% if can? :contract_order, :projects %>
+              <small><%= link_to '集采订单', contract_order_project_path(@project) , class: 'font-a label bg-primary' if @project.can_do? :order %></small>
+            <% end %>
+          </div>
+          <h4 class="box-title">
+            <% if can? :new, :orders %>
+            <%= link_to '新订单', new_order_path(@project, type: 'normal'), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if @project.can_do? :order %>
+            <%= link_to '申请特价', new_order_path(@project, type: 'bargains'), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if @project.can_do? :order %>
+            <%end %>
+          </h4>
+
+          <div class="box-tools pull-right">
+            <!--            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>-->
+            <!--            </button>-->
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+
+
+      </div>
+        <%= render partial: 'projects/orders_item', locals: {orders: @project.default_orders, type: 'order'}%>
+      <div style="text-align: right">
+        <% if can? :step_event, :projects %>
+        <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_order')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :order %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</li>

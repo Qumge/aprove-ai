@@ -1,0 +1,89 @@
+<div class="row" id="detail">
+  <div class="table-responsive col-sm-6">
+    <table class="table">
+      <tbody>
+      <tr>
+        <th style="width:50%">项目名</th>
+        <td><%= @project.name %></td>
+      </tr>
+      <tr>
+        <th>状态</th>
+        <td><%= @project.status %></td>
+      </tr>
+      <tr>
+        <th>立项时间</th>
+        <td><%= simple_time @project.approval_time %></td>
+      </tr>
+      <tr>
+        <th>甲方名称</th>
+        <td><%= @project.company&.name %></td>
+      </tr>
+      <tr>
+        <th>项目类别</th>
+        <td><%= @project.category&.name %></td>
+      </tr>
+      <tr>
+        <th>城市</th>
+        <td><%= @project.city_name %></td>
+      </tr>
+      <tr>
+        <th>项目地址</th>
+        <td><%= @project.address %></td>
+      </tr>
+      <tr>
+        <th>供货方式</th>
+        <td><%= @project.supplier_type %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-responsive col-sm-6">
+    <table class="table">
+      <tbody>
+      <tr>
+        <th>战略合同</th>
+        <td><%= @project.contracts.collect{|con| "#{con.partner}/ #{con.name}"}.join '; '%></td>
+      </tr>
+      <tr>
+        <th>预估规模</th>
+        <td><%= @project.estimate %></td>
+      </tr>
+      <tr>
+        <th>负责人</th>
+        <td><%= @project.owner&.name %></td>
+      </tr>
+      <tr>
+        <th>创建人</th>
+        <td><%= @project.create_user&.name %></td>
+      </tr>
+      <tr>
+        <th>项目对接人</th>
+        <td><%= @project.butt_name %></td>
+      </tr>
+      <tr>
+        <th>对接人职务</th>
+        <td><%= @project.butt_title %></td>
+      </tr>
+      <tr>
+        <th>对接人电话</th>
+        <td><%= @project.butt_phone %></td>
+      </tr>
+      <% if @project.failed? %>
+        <tr>
+          <th>审核失败原因</th>
+          <td><%= @project.audit_failed_reason %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="box-footer clearfix">
+      <div class="pull-right pagination-sm no-margin">
+        <% if can? :edit_owner, :projects %>
+        <%= link_to '负责人变更', edit_owner_project_path(@project),  class: 'btn btn-success btn-xs', 'data-toggle' => "modal", 'data-target' => "#global-modal" %>
+          <% end %>
+        <%= link_to '返回', '#', onclick: 'history.back()', class: 'btn btn-primary btn-xs' %>
+      </div>
+    </div>
+  </div>
+
+</div>

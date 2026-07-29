@@ -1,0 +1,79 @@
+<%= render 'competitors/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <%= form_tag competitors_path, method: :get do%>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.competitors.list') %></h3>
+        <% if can? :new, :competitors %>
+          <div class="box-header-actions">
+            <%= link_to new_competitor_path, class: 'btn btn-primary btn-sm', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+              <%= ui_icon 'upload' %><%= t('sections.competitors.upload') %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.files.name') %></th>
+            <th><%= t('sections.files.uploaded_at') %></th>
+            <th><%= t('sections.files.uploaded_by') %></th>
+            <th></th>
+          </tr>
+          <% if @competitors.present? %>
+            <% @competitors.each do |competitor| %>
+              <tr>
+                <td>
+                  <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= competitor.attachment&.preview_url%>" data-file-name="<%= competitor.attachment&.file_name %>">
+                    <%= ui_icon 'eye' %><%= competitor.name %>
+                  </a>
+                </td>
+                <td><%= simple_time competitor.updated_at %></td>
+                <td><%= competitor.user&.name %></td>
+                <td class="table-actions">
+                  <% if can? :edit, :competitors %>
+                    <%= link_to edit_competitor_path(competitor), class: 'btn btn-default btn-xs table-action', title: t('common.edit'), 'aria-label' => t('common.edit'), 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                      <%= ui_icon 'pencil' %>
+                    <% end %>
+                    <%end %>
+                  <% if can? :destroy, :competitors %>
+                    <%= link_to competitor_path(competitor), class: 'btn btn-default btn-xs table-action table-action-danger', title: t('common.delete'), 'aria-label' => t('common.delete'), method: 'delete', data: {confirm: t('common.confirm_delete')} do %>
+                      <%= ui_icon 'trash-2' %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" align="center"><%= t('common.empty') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @competitors, params: {table_search: params[:table_search]}%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

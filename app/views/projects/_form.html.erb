@@ -1,0 +1,64 @@
+<%= simple_form_for project do |f| %>
+  <div class="box-body">
+    <%= f.input :name, label: t('sections.forms.project.name') %>
+    <%= f.input :company_id, as: :select, collection: Company.all.collect{|company| [company.name, company.id]}, label: t('sections.forms.project.company') %>
+    <%= f.input :category_id, as: :select, collection: Category.all.collect{|category| [category.name, category.id]}, label: t('sections.forms.project.category') %>
+    <%= f.input :contract_ids, label: t('sections.forms.project.contracts'), collection: Contract.all.collect{|contract| ["#{contract.partner} / #{contract.no}", contract.id]}, input_html: { class: 'select2', width: '100%', style: 'width: 100%', multiple: "multiple" }, 'data-placeholder': t('sections.forms.project.contracts_hint') %>
+    <%#= f.input :contract_id, collection: Contract.all.collect{|contract| ["#{contract.partner} / #{contract.no}", contract.id]} %>
+    <div class="form-group select required project_company_id">
+      <label class="form-control-label select required"><%= t('sections.forms.project.city') %> <abbr title="required">*</abbr></label>
+      <div class="city-group">
+        <% if project.city.blank? %>
+            <select class="city-select form-control  required" style="width:45%; display: inline" >
+              <option value=""><%= t('sections.forms.project.province_prompt') %></option>
+              <%= options_for_select(ChinaCity.list) %>
+            </select>
+            <select class="city-select form-control  required" name="project[city]" style="width:45%; display: inline">
+              <option value=""><%= t('sections.forms.project.city_prompt') %></option>
+            </select>
+            </select>
+        <% else %>
+          <%= select_tag "province", options_for_select(ChinaCity.list, ChinaCity.province(project.city.to_s)), class: 'city-select form-control select required', style: 'width:45%; display: inline', prompt: t('sections.forms.project.province_prompt') %>
+          <%= select_tag "project[city]", options_for_select(ChinaCity.list(ChinaCity.province(project.city.to_s)), project.city.to_s), class: 'city-select form-control select required', style: 'width:45%; display: inline', prompt: t('sections.forms.project.city_prompt') %>
+        <% end %>
+      </div>
+      <div class="invalid-feedback"><%= project.errors.messages[:city].first if project.errors.messages[:city].present? %></div>
+      </select>
+    </div>
+    <%= f.input :address, label: t('sections.forms.project.address') %>
+    <%= f.input :supplier_type, label: t('sections.forms.project.supply_method'), collection: [[t('sections.forms.project.supply_customer'), '甲采'], [t('sections.forms.project.supply_designated'), '甲指'], [t('sections.forms.project.supply_contractor'), '乙供']] %>
+    <%= f.input :estimate, label: t('sections.forms.project.estimate') %>
+    <%= f.input :butt_name, label: t('sections.forms.project.contact_name') %>
+    <%= f.input :butt_title, label: t('sections.forms.project.contact_title') %>
+    <%= f.input :butt_phone, label: t('sections.forms.project.contact_phone') %>
+    <% if @project.id.blank? %>
+    <%= f.button :submit, t('common.submit'), class: "btn btn-primary" %>
+      <% end %>
+    <script tye="text/javascript">
+        //ajax提交表单
+        $(function(){
+            $('.select2').select2();
+            selects = $(this).find('.city-select');
+            return selects.change(function() {
+                var $this, next_selects;
+                $this = $(this);
+                next_selects = selects.slice(selects.index(this) + 1);
+                $("option:gt(0)", next_selects).remove();
+                if (next_selects.first()[0] && $this.val() && !$this.val().match(/--.*--/)) {
+                    return $.get("/china_city/" + ($(this).val()), function(data) {
+                        var i, len, option;
+                        if (data.data != null) {
+                            data = data.data;
+                        }
+                        for (i = 0, len = data.length; i < len; i++) {
+                            option = data[i];
+                            next_selects.first()[0].options.add(new Option(option[0], option[1]));
+                        }
+                        return next_selects.trigger('china_city:load_data_completed');
+                    });
+                }
+            });
+        });
+    </script>
+  </div>
+<% end %>

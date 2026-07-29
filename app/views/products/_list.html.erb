@@ -1,0 +1,88 @@
+<div class="row" id="product-list">
+  <div class="col-md-12">
+    <div class="box">
+      <%= form_tag products_path, method: :get do%>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.products.list') %></h3>
+        <% if can? :new, :products %>
+          <small><%= link_to t('sections.products.add'), new_product_path, class: 'font-a label bg-green', 'data-toggle' => "modal", 'data-target' => "#global-modal" %></small>
+        <% end %>
+        <div class="pull-right">
+          <% if can? :import, :products %>
+            <small><%= link_to t('sections.products.import'), import_products_path, class: 'font-a label bg-green', 'data-toggle' => "modal", 'data-target' => "#global-modal" %></small>
+          <% end %>
+        </div>
+      </div>
+      <div class="box-tools">
+        <div class="input-group input-group-sm">
+          <div class="pull-right">
+            <div class="col-xs-12">
+              <input type="text" name="table_search" class="form-control" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>">
+            </div>
+          </div>
+
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+          </div>
+        </div>
+      </div>
+
+
+      <% end %>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.products.columns.code') %></th>
+            <th><%= t('sections.products.columns.name') %></th>
+            <th><%= t('sections.products.columns.model') %></th>
+            <th><%= t('sections.products.columns.price') %></th>
+            <th></th>
+          </tr>
+          <tr>
+            <% if products.present? %>
+              <% products.each do |product| %>
+              <tr>
+                <td><%= link_to product.no, product_path(product), 'data-toggle' => "modal", 'data-target' => "#global-modal" %></td>
+                <td><%= product.name %></td>
+                <td><%= product.product_no %></td>
+                <td><%= product.reference_price %></td>
+                <td>
+                  <% if can? :contract_sales, :products %>
+                    <%= link_to contract_sales_product_path(product), class: 'label label-info' do %>
+                      <%= ui_icon 'badge-dollar-sign' %><%= t('sections.products.contract_price') %>
+                    <% end %>
+                  <% end %>
+                  <% if can? :edit, :products %>
+                    <%= link_to  edit_product_path(product), class: 'label label-success left-20', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                      <%= ui_icon 'pencil' %><%= t('common.edit') %>
+                    <% end %>
+                  <% end %>
+                  <% if can? :destroy, :products %>
+                    <%= link_to product_path(product), method: :delete, data: {confirm: '确定删除吗？'}, class: 'label label-danger left-20' do %>
+                      <%= ui_icon 'trash-2' %><%= t('common.delete') %>
+                    <% end %>
+                  <% end %>
+
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" align="center"><%= t('common.empty') %></td>
+            </tr>
+          <% end %>
+          </tr>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate products, params: {table_search: params[:table_search]} %>
+        </div>
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

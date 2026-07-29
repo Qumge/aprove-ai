@@ -1,0 +1,6 @@
+<% if @flag %>
+  $('#tab_2').html('<%= j render(partial: 'sales/list', locals: {sales: @sales})%>')
+  $('#global-modal').modal('hide')
+<% else %>
+  $('#form').html('<%= j render "/sales/form"%>');
+<% end %>

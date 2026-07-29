@@ -1,0 +1,79 @@
+<%= render 'costs/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <%= form_tag costs_path, method: :get do%>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.costs.list') %></h3>
+        <% if can? :new, :costs %>
+          <div class="box-header-actions">
+            <%= link_to new_cost_path, class: 'btn btn-primary btn-sm', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+              <%= ui_icon 'plus' %><%= t('sections.costs.add') %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.costs.columns.salesperson') %></th>
+            <th><%= t('sections.costs.columns.amount') %></th>
+            <th><%= t('sections.costs.columns.type') %></th>
+            <th><%= t('sections.costs.columns.purpose') %></th>
+            <th><%= t('sections.costs.columns.occurred_at') %></th>
+            <th></th>
+          </tr>
+          <% if @costs.present? %>
+            <% @costs.each do |cost| %>
+              <tr>
+                <td><%= cost.user&.name %></td>
+                <td><%= cost.amount%></td>
+                <td><%= cost.cost_category&.name%></td>
+                <td><%= cost.purpose %></td>
+                <td><%= simple_time cost.occur_time %></td>
+                <td class="table-actions">
+                  <% if can? :edit, :costs %>
+                    <%= link_to edit_cost_path(cost), class: 'btn btn-default btn-xs table-action', title: t('common.edit'), 'aria-label' => t('common.edit'), 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                      <%= ui_icon 'pencil' %>
+                    <% end %>
+                  <% end %>
+                  <% if can? :destroy, :costs %>
+                    <%= link_to cost_path(cost), class: 'btn btn-default btn-xs table-action table-action-danger', title: t('common.delete'), 'aria-label' => t('common.delete'), method: 'delete', data: {confirm: t('common.confirm_delete')} do %>
+                      <%= ui_icon 'trash-2' %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" align="center"><%= t('common.empty') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @costs, params: {table_search: params[:table_search]}%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

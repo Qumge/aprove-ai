@@ -1,0 +1,51 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label"></h4>
+  </div>
+  <%= simple_form_for(@report, html: {class: 'form-horizontal group_form', onkeydown: "if(event.keyCode==13)return false;"}, wrapper: :horizontal_form) do |f| %>
+    <div class="modal-body" >
+      <%= f.input :name%>
+      <%= f.input :address %>
+      <%= f.input :builder%>
+      <%= f.input :phone %>
+      <%= f.input :project_type %>
+      <%= f.input :project_step %>
+      <%= f.input :purchase_type %>
+      <%= f.input :scale %>
+      <%= f.input :product %>
+      <%= f.input :supply_time %>
+      <%= f.input :source %>
+      <%= f.input :desc %>
+    </div>
+  <% end %>
+
+  <div class="modal-footer">
+    <%= button_tag '保存', class: 'btn btn-primary commit commit', data: { disable_with: '保存中' } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+  </div>
+</div>
+<script tye="text/javascript">
+    //ajax提交表单
+    $(function(){
+        $('.commit').click(function(){
+            showSpinner();
+            $.ajax({
+                type: "POST",
+                url: $('.group_form').attr('action'),
+                data: $('.group_form').serialize(),
+                dataType: 'script',
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    //接收后台返回的结果
+                }
+            });
+
+        })
+    });
+</script>
+
+

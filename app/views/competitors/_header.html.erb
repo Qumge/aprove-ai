@@ -1,0 +1,15 @@
+<% content_for :content_header do %>
+  <h1>
+    <%= t('sections.competitors.title') %>
+    <small><%= get_title params %></small>
+
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <%=link_to competitors_path do %>
+        <%= ui_icon 'layout-dashboard' %> <%= t('sections.competitors.title') %>
+      <% end %>
+    </li>
+    <li class="active"><%= get_title params %></li>
+  </ol>
+<% end %>

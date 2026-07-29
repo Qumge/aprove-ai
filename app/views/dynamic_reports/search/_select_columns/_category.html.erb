@@ -1,0 +1,74 @@
+<div class="col-md-3">
+  <div class="box box-default box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.fields.category') %></h3>
+      <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="categories.name" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.category_name') %>
+        </label>
+      </div>
+
+    </div>
+    <!-- /.box-body -->
+  </div>
+
+  <div class="box box-default box-solid ">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.fields.customer') %></h3>
+      <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="companies.name" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.company_name') %>
+        </label>
+      </div>
+
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <div class="box box-default box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.fields.agent') %></h3>
+      <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="agents.name" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.agent_company') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="agents.city" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.agent_city') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="agents.username" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.agent_name') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="agents.phone" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.agent_phone') %>
+        </label>
+      </div>
+
+
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>

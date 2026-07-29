@@ -1,0 +1,67 @@
+<div class="modal-header" style="padding:5px; padding-left: 15px;">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="file-modal-label"></h4>
+</div>
+
+<div class="modal-body" >
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>产品代码</th>
+      <td><%= @product&.no %></td>
+    </tr>
+    <tr>
+      <th>产品名</th>
+      <td><%= @product&.name %></td>
+    </tr>
+    <tr>
+      <th>产品型号</th>
+      <td><%= @product&.product_no %></td>
+    </tr>
+    <tr>
+      <th>产品类型</th>
+      <td><%= @product.product_category&.name %></td>
+    </tr>
+    <tr>
+      <th>价格</th>
+      <td><%= @product.reference_price %>元</td>
+    </tr>
+    <tr>
+      <th>单位</th>
+      <td><%= @product&.unit %></td>
+    </tr>
+    <tr>
+      <th>品牌</th>
+      <td><%= @product&.brand %></td>
+    </tr>
+    <tr>
+      <th>规格尺寸</th>
+      <td><%= @product&.norms %></td>
+    </tr>
+    <tr>
+      <th>市场价</th>
+      <td><%= @product&.market_price %></td>
+    </tr>
+    <tr>
+      <th>集采价</th>
+      <td><%= @product&.acquisition_price %></td>
+    </tr>
+    <tr>
+      <th>运费</th>
+      <td><%= @product&.freight %></td>
+    </tr>
+    <tr>
+      <th>外观颜色</th>
+      <td><%= @product&.color %></td>
+    </tr>
+    <tr>
+      <th>备注</th>
+      <td><%= @product&.desc %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+</div>

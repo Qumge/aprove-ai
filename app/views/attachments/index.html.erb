@@ -1,0 +1,58 @@
+<%= render 'attachments/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.files.list') %></h3>
+      </div>
+      <div class="box-tools">
+        <%= form_tag attachments_path, method: :get do %>
+          <%= render 'attachments/search' %>
+        <% end %>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.files.name') %></th>
+            <th><%= t('sections.files.type') %></th>
+            <th><%= t('sections.files.uploaded_at') %></th>
+            <th></th>
+          </tr>
+          <% if @attachments.present? %>
+            <% @attachments.each do |attachment| %>
+              <tr>
+                <td>
+                  <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= attachment&.preview_url%>" data-file-name="<%= attachment&.file_name %>">
+                    <%= ui_icon 'eye' %><%= attachment.file_name %>
+                  </a>
+                </td>
+                <td><%= t("sections.files.types.#{attachment.model_type}", default: Attachment.model_types[attachment.model_type.to_sym]) %></td>
+                <td><%= simple_time attachment.created_at %></td>
+                <td>
+                  <% if can? :destroy, :attachments %>
+                    <%= link_to t('common.delete'), attachment_path(attachment), class: 'font-a label btn-danger', method: 'delete', data: {confirm: t('common.confirm_delete')} %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" align="center"><%= t('common.empty') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @attachments, params: {table_search: params[:table_search], date_range: params[:date_range], model_type: params[:model_type]}%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

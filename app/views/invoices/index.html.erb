@@ -1,0 +1,88 @@
+<%= render 'projects/header' %>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">开票列表
+            <% if can? :new, :invoices %>
+              <small><%= link_to '开票', new_invoice_path , class: 'font-a label bg-green', 'data-toggle' => "modal", 'data-target' => "#global-modal" %></small>
+            <% end %>
+          </h3>
+        </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>No</th>
+            <th>开票金额</th>
+            <th>状态</th>
+            <th>单据</th>
+            <th></th>
+          </tr>
+          <% if @project.invoices.present? %>
+            <% @project.invoices.each do |invoice| %>
+              <tr>
+                <td><%= invoice.no %></td>
+                <td><%= invoice.amount%></td>
+                <td><%= invoice.get_status %>
+                  <% if invoice.failed? %><span style="color: red"><%= invoice.audit_failed_reason %></span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if invoice.invoice_file.present? %>
+                    <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= invoice.invoice_file.preview_url%>" data-file-name="<%= invoice.invoice_file.file_name %>">
+                      <%= ui_icon 'eye' %>开票文件
+                    </a>
+                    <br/>
+                  <% end %>
+                </td>
+
+                <td>
+                  <% if can? :invoice_apply, :invoices %>
+                    <%= link_to '申请', 'JavaScript:void(0)', onclick: "apply_invoice(#{invoice.id})",class: 'btn ' if invoice.may_do_apply? %>
+                  <%end %>
+
+                  <% if can?(:edit, :invoices) %>
+                    <%= link_to '编辑', edit_invoice_path(@project, invoice_id: invoice.id), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if invoice.can_edit? %>
+                  <% end %>
+
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" align="center">没有可显示的内容</td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= link_to '返回', project_path(@project), class: 'btn btn-primary', style: 'margin-left:20px;' %>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+<script type="text/javascript">
+
+  function apply_invoice(invoice_id){
+      if(confirm('申请后不可变更，确认申请吗？')){
+          showSpinner();
+          $.ajax({
+              type: 'POST',
+              url: '<%= invoice_apply_invoices_path %>',
+              data: {invoice_id: invoice_id},
+              dataType: 'script',
+              success: function (data) {
+              }
+          })
+      }
+  }
+
+</script>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="<%= t('sections.reports.project_report') %>">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.time') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.project_category') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.customer') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.project') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.ordered_amount') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.delivered_amount') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.payment_amount') %></Data></Cell>
+      </Row>
+
+      <% @table_data.each do |data| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= data[0] %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[1].category&.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[1].company&.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[1].name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= (@applied_hash[data[0]].present? && @applied_hash[data[0]][data[1]].present?) ? @applied_hash[data[0]][data[1]] : 0 %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= (@deliver_hash[data[0]].present? && @deliver_hash[data[0]][data[1]].present?) ? @deliver_hash[data[0]][data[1]] : 0 %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[2] %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

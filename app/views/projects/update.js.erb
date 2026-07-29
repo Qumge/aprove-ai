@@ -1,0 +1,6 @@
+<% if @flag %>
+location.reload();
+<% else %>
+console.log()
+$('#modal-form').html('<%=j  render partial: 'projects/form', locals: {project: @project} %>');
+<% end %>

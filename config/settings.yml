@@ -1,0 +1,8 @@
+per_page: 15
+regional_ids: [3, 4, 5]
+submail:
+  message:
+    appid: <%= ENV['SUBMAIL_APP_ID'] %>
+    appkey: <%= ENV['SUBMAIL_APP_KEY'] %>
+    template_id: <%= ENV['SUBMAIL_TEMPLATE_ID'] %>
+    message_x_send_url: 'https://api.submail.cn/message/xsend.json'

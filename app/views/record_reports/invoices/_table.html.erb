@@ -1,0 +1,29 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.reports.time') %></th>
+      <th><%= t('sections.reports.person') %></th>
+      <th><%= t('sections.reports.invoice_amount') %></th>
+    </tr>
+    <% if @invoices_array.present? %>
+      <% @invoices_array.each do |data| %>
+            <tr>
+              <td><%= data[0] %></td>
+              <td><%= data[1]&.name %></td>
+              <td><%= data[2] %></td>
+            </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="3" align="center"><%= t('common.empty') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @invoices_array, remote: true, params: params%>
+  </div>
+
+</div>

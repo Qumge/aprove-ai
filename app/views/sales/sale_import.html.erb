@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">合同价-批量导入</h4>
+</div>
+<%= form_tag(do_import_sales_path, multipart: true) do %>
+  <div class="modal-body">
+    <ol>
+      <table class="table table-condensed table-bordered">
+        <thead>
+        <th>产品名</th>
+        <th>价格</th>
+        <th>备注</th>
+        </thead>
+        <tbody>
+        <td>必填</td>
+        <td>必填</td>
+        <td>选填</td>
+        </tbody>
+      </table>
+
+      <ul>
+        <li>表格样式如上所示,表头（第一行）必须和上述表格一致</li>
+        <li>【产品名】必须提前录入到系统当中</li>
+        <li>【产品名】为产品的唯一标识，如果重复导入会更新价格信息</li>
+      </ul>
+    </ol>
+
+    <p style="padding:50px"><%= file_field_tag :file, accept: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %></p>
+  </div>
+
+  <div class="modal-footer">
+    <%= submit_tag '保存', class: 'btn btn-primary', data: { disable_with: "处理中..." } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+  </div>
+<% end %>

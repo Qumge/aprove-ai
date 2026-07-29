@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="categories" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.category') %>
+      </label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="projects" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.project') %>
+      </label>
+    </div>
+  </div>
+  <% if params[:action] == 'applied' %>
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="product_categories" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.product_category') %>
+      </label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="products" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.product') %>
+      </label>
+    </div>
+  </div>
+    <% end %>
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="companies" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.customer') %>
+      </label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="users" name="groups[]">
+        <%= t('sections.dynamic_reports.fields.salesperson') %>
+      </label>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%= select_tag 'date_group',
+                   options_for_select([
+                     [t('sections.reports.day'), 'day'],
+                     [t('sections.reports.month'), 'month'],
+                     [t('sections.reports.year'), 'year']
+                   ], params[:date_group]),
+                   include_blank: t('sections.reports.time'),
+                   style: 'width:100px;' %>
+  </div>
+</div>

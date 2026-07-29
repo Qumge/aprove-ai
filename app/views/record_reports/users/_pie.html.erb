@@ -1,0 +1,35 @@
+
+<div class="box box-danger">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= t('sections.reports.receivable') %>
+      <% if can? :projects, :record_reports %>
+        <small><%= link_to t('common.more'), users_record_reports_path, class: 'font-a label bg-green' %></small>
+      <% end %>
+    </h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="<%= t('common.close') %>"><%= ui_icon 'minus' %>
+      </button>
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="remove" title="<%= t('common.close') %>"><%= ui_icon 'x' %></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="col-md-3">
+      <ul class="chart-legend clearfix">
+        <% @users_pie_labels.each_with_index do |label, index| %>
+          <li><span class="chart-legend-swatch" style="background: <%= @chatColor[index] %>"></span><%= label %>: <%= @users_pie_data[index] %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <canvas id="users_pie" style="height:250px"></canvas>
+    </div>
+
+  </div>
+  <!-- /.box-body -->
+</div>
+<script type="text/javascript">
+    $(function(){
+        myPieChat('users_pie', <%= raw @users_pie_labels %>, <%= raw @users_pie_data %>);
+    });
+</script>

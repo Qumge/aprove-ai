@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+
+  <%= render 'layouts/head' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+
+<body class="hold-transition sidebar-mini app-shell <%= @layout %> <%= @top_nav %> <%= @sidebar %>">
+
+  <div class="wrapper">
+
+    <% if @demo_mode || @top_nav == '' %>
+      <%= render 'layouts/navbar' %>
+      <%= render 'layouts/sidebar' %>
+    <% else %>
+      <%= render 'layouts/navbar_only' %>
+    <% end %>
+
+    <main class="content-wrapper">
+      <section class="content-header">
+        <%= yield(:content_header) %>
+      </section>
+
+      <section class="content">
+        <%= yield %>
+      </section>
+
+    </main>
+
+  </div>
+  <%= render 'layouts/modal' %>
+  <%= render 'layouts/tips' %>
+
+
+  <script>
+    <% if !@demo_mode %>
+      <% if @collapsed_sidebar_expand_on_hover %>
+        collapsed_sidebar_expand_on_hover();
+      <% end %>
+      <% if @right_sidebar_slide %>
+        right_sidebar_slide();
+      <% end %>
+    <% else %>
+    <% end %>
+  </script>
+  <div id="spinner">
+
+  </div>
+</body>
+</html>

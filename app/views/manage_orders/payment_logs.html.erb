@@ -1,0 +1,32 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label">回款记录</h4>
+  </div>
+    <div class="modal-body" >
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th>回款时间</th>
+          <th>回款金额</th>
+          <th>录入人员</th>
+        </tr>
+        <% @payment_logs.each do |payment| %>
+        <tr>
+          <td><%= simple_time payment.payment_at %></td>
+          <td><%= payment.amount %></td>
+          <td><%= payment.user&.name %></td>
+        </tr>
+
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+  </div>
+</div>
+
+
+

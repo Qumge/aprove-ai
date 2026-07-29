@@ -1,0 +1,23 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    回款金额确认
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <!--        <i class="fa fa-envelope bg-blue"></i>-->
+  <span class="timeline-icon bg-blue"><%= ui_icon 'check' %></span>
+  <div class="timeline-item">
+    <div class="timeline-body">
+        <input class="form-control string optional" type="text" name="payment" id="payment" style="max-width: 250px;" readonly value="<%=@project.payment %>">
+      <% if can? :payment, :projects %>
+        <% if @project.can_do_next? :payment %>
+      <a data-toggle="modal" class="btn btn-xs bg-blue" onclick="payment()">
+        回款金额确认
+      </a>
+        <% end %>
+      <%end %>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,83 @@
+
+<div class="row">
+  <% if can? :report, :projects %>
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h4>项目报备</h4>
+
+        <p style="height: 13px;"></p>
+      </div>
+      <div class="icon">
+        <i class="fa  fa-building-o"></i>
+      </div>
+      <%= link_to report_project_path(@project), class: 'small-box-footer' do %>
+        详情 <%= ui_icon 'arrow-right' %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <!-- ./col -->
+  <% if @project.agent.present? && can?(:agent, :projects) %>
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h4>代理商</h4>
+
+        <p style="height: 13px;"></p>
+      </div>
+      <div class="icon">
+        <%= ui_icon 'user-round' %>
+      </div>
+      <%= link_to agent_project_path(@project), class: 'small-box-footer' do %>
+        详情 <%= ui_icon 'arrow-right' %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <!-- ./col -->
+  <% if can? :sales, :projects %>
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h4>合同价格体系</h4>
+
+        <p style="height: 13px;"></p>
+      </div>
+      <div class="icon">
+        <%= ui_icon 'badge-dollar-sign' %>
+      </div>
+      <%= link_to sales_project_path(@project), class: 'small-box-footer' do %>
+        详情 <%= ui_icon 'arrow-right' %>
+        <% end %>
+    </div>
+  </div>
+  <%end %>
+
+  <% if can? :index, :invoices %>
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h4>开票</h4>
+
+          <p style="height: 13px;"></p>
+        </div>
+        <div class="icon">
+          <i class="fa   fa-credit-card"></i>
+        </div>
+        <%= link_to invoices_path, class: 'small-box-footer' do %>
+          详情 <%= ui_icon 'arrow-right' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+
+
+</div>

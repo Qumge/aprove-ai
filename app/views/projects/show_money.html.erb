@@ -1,0 +1,36 @@
+<div class="modal-header" style="padding:5px; padding-left: 15px;">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="file-modal-label"></h4>
+</div>
+
+<div class="modal-body" >
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>下单金额</th>
+      <td><%= @project.orders.where('applied_at is not null').sum(:total_price) %></td>
+    </tr>
+    <tr>
+      <th>发货金额</th>
+      <td><%= @project.deliver_amount %></td>
+    </tr>
+    <tr>
+      <th>回款金额</th>
+      <td><%= @project.payment %></td>
+    </tr>
+    <tr>
+      <th>开票金额</th>
+      <td><%= @project.invoices.where('applied_at is not null').sum(:amount) %></td>
+    </tr>
+    <tr>
+      <th>待回款</th>
+      <td><%= @project.deliver_amount.to_f -  @project.payment.to_f  %></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+</div>

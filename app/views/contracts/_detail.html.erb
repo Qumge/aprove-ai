@@ -1,0 +1,76 @@
+<div>
+  <div class="table-responsive col-sm-6">
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>合同编号</th>
+          <td><%= contract.no %></td>
+        </tr>
+        <tr>
+          <th>明细</th>
+          <td><%= contract.name %></td>
+        </tr>
+        <tr>
+          <th>战略合作方</th>
+          <td><%= contract.partner %></td>
+        </tr>
+        <tr>
+          <th>产品品类</th>
+          <td><%= contract.product %></td>
+        </tr>
+        <tr>
+          <th>合同有效期限</th>
+          <td><%= simple_time contract.valid_date %></td>
+        </tr>
+
+        </tbody>
+      </table>
+      </div>
+  <div class="table-responsive col-sm-6">
+      <table class="table">
+        <tbody>
+        <tr>
+          <th>供货周期</th>
+          <td><%= contract.cycle %></td>
+        </tr>
+        <tr>
+          <th style="width:50%">预付款请款时间</th>
+          <td><%= contract.advance_time %>天</td>
+        </tr>
+        <tr>
+          <th>进度款请款时间</th>
+          <td><%= contract.process_time %>天</td>
+        </tr>
+        <tr>
+          <th>结算款请款时间</th>
+          <td><%= contract.settlement_time %>天</td>
+        </tr>
+        <tr>
+          <th>尾款请款时间</th>
+          <td><%= contract.tail_time %>天</td>
+        </tr>
+
+        </tbody>
+      </table>
+  </div>
+  <div class="table-responsive col-sm-12">
+      <table class="table">
+          <tbody>
+            <tr>
+              <th style="width:20%;word-break : break-all;">其他关键条款</th>
+              <td>
+                <%= text_area_tag :others, contract.others, readonly: :readonly, style: 'width: 100%;', rows: "5" %>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="box-footer clearfix">
+    <div class="pull-right pagination-sm no-margin">
+      <%= link_to '返回', contracts_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
+
+
+<!-- /.box-header -->

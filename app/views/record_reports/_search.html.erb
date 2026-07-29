@@ -1,0 +1,65 @@
+<div class="input-group input-group-sm">
+
+    <div class="col-md-3">
+      <div class="input-group" style="width:100%">
+        <div class="input-group-addon">
+          <%= ui_icon 'calendar-days' %>
+        </div>
+        <input type="text" class="form-control" id="date_range" name="date_range" value="<%= params[:date_range] %>">
+      </div>
+    </div>
+
+    <% if params[:action] == 'projects' %>
+    <div class="col-md-3">
+      <%= select_tag :project_id, options_for_select(Project.all.collect{|project| [project.name, project.id]}, params[:project_id]), include_blank: t('sections.reports.project'), class: 'form-control select2' %>
+    </div>
+    <div class="col-md-3 ">
+      <%= select_tag :company_id, options_for_select(Company.all.collect{|company| [company.name, company.id]}, params[:company_id]), include_blank: t('sections.reports.customer'), class: 'form-control select2' %>
+    </div>
+    <% end %>
+    <% if ['users', 'costs', 'invoices'].include? params[:action] %>
+    <div class="col-md-3">
+      <%= select_tag :user_id, options_for_select(User.all.collect{|user| [user.name, user.id]}, params[:user_id]), include_blank: t('sections.reports.salesperson'), class: 'form-control select2' %>
+    </div>
+    <% if ['costs'].include? params[:action] %>
+      <div class="col-md-3">
+      <%= select_tag :cost_category_id, options_for_select(CostCategory.all.collect{|cc| [cc.name, cc.id]}, params[:cost_category_id]), include_blank: t('sections.reports.expense_type'), class: 'form-control select2' %>
+      </div>
+    <% end %>
+    <% end %>
+    <% if ['products'].include? params[:action] %>
+      <div class="col-md-3">
+        <%= select_tag :product_id, options_for_select(Product.all.collect{|product| [product.name, product.id]}, params[:product_id]), include_blank: t('sections.reports.product'), class: 'form-control select2' %>
+      </div>
+    <% end %>
+    <div class="col-md-3">
+      <%= select_tag :group_type, options_for_select([[t('sections.reports.day'), 'day'], [t('sections.reports.month'), 'month'], [t('sections.reports.year'), 'year']], params[:group_type]), include_blank: false, class: 'form-control', style: 'width:100%' %>
+    </div>
+    <% if can? :all, :record_reports %>
+    <div class="col-md-3">
+      <%= select_tag :organization_id, options_for_select(Organization.regional_organization.collect{|org| [org.name, org.id]}, params[:organization_id]), include_blank: t('sections.reports.region'), class: 'form-control', style: 'width:100%' %>
+    </div>
+    <% end %>
+  <div class="input-group-btn">
+    <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+      moment.locale('<%= I18n.locale.to_s.downcase %>');
+      $('#date_range').daterangepicker({
+          autoclose: true,
+          language: '<%= I18n.locale.to_s.downcase %>',
+          locale: {
+              format: "YYYY-MM-DD", //设置显示格式
+                  applyLabel: '<%= j t('common.confirm') %>',
+                  cancelLabel: '<%= j t('common.cancel') %>',
+                customRangeLabel: '<%= j t('common.custom_range') %>',
+                 daysOfWeek: <%= raw I18n.t('date.abbr_day_names').to_json %>,
+                monthNames: <%= raw I18n.t('date.month_names').compact.to_json %>,
+           firstDay: 1
+          },
+      });
+      $('.select2').select2();
+  })
+</script>

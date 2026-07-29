@@ -1,0 +1,25 @@
+<div class="col-md-3" id="order_products" style="display: none">
+  <div class="box box-default box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.fields.order_product') %></h3>
+      <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="order_products.number" name="select_columns[]" disabled="disabled">
+          <%= t('sections.dynamic_reports.fields.quantity') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="order_products.discount_price" name="select_columns[]" disabled="disabled">
+          <%= t('sections.dynamic_reports.fields.sale_price') %>
+        </label>
+      </div>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>

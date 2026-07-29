@@ -1,0 +1,41 @@
+<style>
+  table.table-bordered tbody td {
+    word-break: keep-all;
+  }
+  table.table-bordered tbody th {
+    word-break: keep-all;
+  }
+</style>
+  <!-- /.box-header -->
+    <table class="table table-bordered">
+      <tbody>
+      <tr>
+        <th><%= t('sections.dynamic_reports.fields.time') %></th>
+        <% params[:select_columns].each do |column| %>
+          <th><%= format_select_column column %></th>
+        <% end %>
+        <th><%= t('sections.dynamic_reports.fields.order_amount') %></th>
+      </tr>
+      <%@datas.each do |data| %>
+      <tr>
+        <td>
+          <%= simple_time_mini data.view_date %>
+        </td>
+        <% params[:select_columns].each do |column| %>
+          <td>
+            <%= format_select_value data, column %>
+          </td>
+        <% end %>
+        <td>
+          <%= data.amounts %>
+        </td>
+      </tr>
+      <% end %>
+
+      </tbody></table>
+  <!-- /.box-body -->
+  <div class="box-footer clearfix">
+    <ul class="pagination pagination-sm no-margin pull-right">
+      <%= paginate @datas, params: params, remote: true%>
+    </ul>
+  </div>

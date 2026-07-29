@@ -1,0 +1,34 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.audits.columns.object') %></th>
+      <th><%= t('sections.audits.columns.object_type') %></th>
+      <th><%= t('sections.audits.columns.from_status') %></th>
+      <th><%= t('sections.audits.columns.to_status') %></th>
+      <th><%= t('sections.audits.columns.approved_at') %></th>
+    </tr>
+    <% if @audits.present? %>
+      <% @audits.each do |audit| %>
+        <tr>
+          <td><%= audit.model_show_name %></td>
+          <td><%= audit.get_model_type %></td>
+          <td><%= audit.model_type.constantize::STATUS[audit.from_status.to_sym] %></td>
+          <td><%= audit.model_type.constantize::STATUS[audit.to_status.to_sym] %></td>
+          <td><%= simple_time audit.created_at %></td>
+        </tr>
+        <tr></tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5" align="center"><%= t('sections.audits.no_history') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<!-- /.box-body -->
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @audits%>
+  </div>
+</div>

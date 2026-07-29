@@ -1,0 +1,25 @@
+
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.reports.project') %>
+        <% if can? :projects, :record_reports %>
+          <small><%= link_to t('common.more'), projects_record_reports_path, class: 'font-a label bg-green' %></small>
+        <% end %>
+      </h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="<%= t('common.close') %>"><%= ui_icon 'minus' %>
+        </button>
+        <button type="button" class="btn btn-box-tool icon-button" data-widget="remove" title="<%= t('common.close') %>"><%= ui_icon 'x' %></button>
+      </div>
+    </div>
+    <div class="box-body">
+      <canvas id="projects_pie" style="height:250px"></canvas>
+    </div>
+    <!-- /.box-body -->
+  </div>
+<script type="text/javascript">
+    $(function(){
+        myPieChat('projects_pie', <%= raw @projects_pie_labels %>, <%= raw @projects_pie_data %>);
+    });
+</script>

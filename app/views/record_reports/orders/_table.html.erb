@@ -1,0 +1,31 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.reports.time') %></th>
+      <th><%= t('sections.reports.ordered_amount') %></th>
+      <th><%= t('sections.reports.delivered_amount') %></th>
+      <th><%= t('sections.reports.payment_amount') %></th>
+    </tr>
+    <% if @order_array.present? %>
+      <% @order_array.each_with_index do |date, index| %>
+        <tr>
+          <td><%= date %></td>
+          <td><%= @orders_bar_data[0][index + (page_numbers params)] %></td>
+          <td><%= @orders_bar_data[1][index + (page_numbers params)] %></td>
+          <td><%= @orders_bar_data[2][index + (page_numbers params)] %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="4" align="center"><%= t('common.empty') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @order_array, remote: true, params: params%>
+  </div>
+
+</div>

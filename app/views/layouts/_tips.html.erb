@@ -1,0 +1,30 @@
+<div class="page_tips" style="display: none;">
+  <% if notice %>
+    <div class="success">
+      <div class="inner"><%= notice %><%= ui_icon 'x', class: 'close-tips' %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="failed">
+      <div class="inner"><%= alert %><%= ui_icon 'x', class: 'close-tips' %></div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $(".close-tips").on("click", function(){
+            $(this).closest(".page_tips").hide();
+        });
+        // 提示框自动隐藏
+        var page_tips = $(".page_tips");
+        var inner = page_tips.find(".inner");
+        if( inner.html() ){
+            page_tips.fadeIn(function(){
+                setTimeout(function(){ page_tips.fadeOut(); }, 3000);
+            });
+        }
+    })
+</script>

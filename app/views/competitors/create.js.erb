@@ -1,0 +1,6 @@
+<% if @flag  %>
+location.reload();
+<% else %>
+$('#form').replaceWith('<%= j render(partial: 'competitors/form')%>')
+hideSpinner();
+<% end %>

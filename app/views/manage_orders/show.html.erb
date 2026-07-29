@@ -1,0 +1,95 @@
+<div class="modal-header" style="padding:5px; padding-left: 15px;">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="file-modal-label">订单详情<small><%= link_to '导出', manage_order_path(@order, format: 'xls') %></small></h4>
+
+</div>
+
+<div class="modal-body" >
+  <div class="box-body" style="border: solid 1px #d2d6de;">
+    <% @order.order_products.each do |order_product| %>
+      <div class="col-md-4">
+        <div class="box box-primary">
+          <div class="box-body box-profile">
+            <p class="text-muted text-center"><%= order_product.product&.name %></p>
+
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b>编号</b> <a class="pull-right"><%= order_product.product&.no %></a>
+              </li>
+              <li class="list-group-item">
+                <b>价格</b> <a class="pull-right"><%= order_product.real_price %></a>
+              </li>
+              <li class="list-group-item">
+                <b>数量</b> <a class="pull-right"><%= order_product.number %></a>
+              </li>
+              <li class="list-group-item">
+                <b>总价</b> <a class="pull-right"><%= order_product.real_total_price %></a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+
+    <% end %>
+    <div class="col-md-4">
+      <p class="text-muted ">
+        <span><b>订货清单:</b></span>
+        <% if @order.place_file.present? %>
+          <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= @order.place_file.preview_url%>" data-file-name="<%= @order.place_file.file_name %>">
+            <%= ui_icon 'eye' %><%= show_file_name '订货清单',  @order.place_file %>
+          </a>
+        <% end %>
+      </p>
+      <p class="text-muted ">
+        <span><b>发货清单:</b></span>
+        <%@order.deliver_logs.each do |deliver_log| %>
+          <% if deliver_log.deliver_file.present? %>
+            <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= deliver_log.deliver_file.preview_url%>" data-file-name="<%= deliver_log.deliver_file.file_name %>">
+              <%= ui_icon 'eye' %><%= show_file_name "发货清单-#{simple_time deliver_log.deliver_at}", deliver_log.deliver_file %>
+            </a>
+          <% end %>
+        <% end %>
+
+      </p>
+      <p class="text-muted ">
+        <span><b>签收清单:</b></span>
+        <% if @order.sign_log.present? && @order.sign_log.sign_file.present?  %>
+          <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= @order.sign_log.sign_file.preview_url%>" data-file-name="<%=  @order.sign_log.sign_file.file_name %>">
+            <%= ui_icon 'eye' %><%= show_file_name '签收清单', @order.sign_log.sign_file %>
+          </a>
+        <% end %>
+      </p>
+
+      <p class="text-muted ">
+        <span><b>请款资料:</b></span>
+        <% if @order.fund_log.present? && @order.fund_log.fund_file.present?  %>
+          <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= @order.fund_log.fund_file.preview_url%>" data-file-name="<%=  @order.fund_log.fund_file.file_name %>">
+            <%= ui_icon 'eye' %><%= show_file_name '请款资料', @order.fund_log.fund_file %>
+          </a>
+        <% end %>
+      </p>
+      <p class="text-muted ">
+        <span><b>回款金额（元）:</b> <%= @order.payment %></span>
+      </p>
+      <p class="text-muted ">
+        <span><b>备注:</b> <span style="font-size:12px;"><%= @order.desc %></span></span>
+      </p>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-6" style="text-align: left">
+        <b>状态：</b><%= @order.get_status %>
+        <% if @order.failed? %><span style="color: red"><%= @order.audit_failed_reason %></span>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <b>合计：</b><%= @order.real_total_price %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+</div>

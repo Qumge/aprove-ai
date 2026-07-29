@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="<%= t('sections.dynamic_reports.title') %>">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String"><%= t('sections.dynamic_reports.fields.time') %></Data></Cell>
+        <% params[:select_columns].each do |column| %>
+          <Cell><Data ss:Type="String"><%= format_select_column column %></Data></Cell>
+        <% end %>
+        <Cell><Data ss:Type="String"><%= t('sections.dynamic_reports.detail_amount') %></Data></Cell>
+      </Row>
+      <%@datas.each do |data| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= simple_time_mini data.view_date %></Data></Cell>
+          <% params[:select_columns].each do |column| %>
+            <Cell><Data ss:Type="String"><%= format_select_value data, column %></Data></Cell>
+          <% end %>
+          <Cell><Data ss:Type="String"><%=  data.amounts %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

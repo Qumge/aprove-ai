@@ -1,0 +1,24 @@
+<% invoice.orders.each do |order| %>
+  <div class="col-md-4">
+    <!-- Profile Image -->
+    <div class="box-primary">
+      <div class="box-body box-profile">
+        <p class="text-muted text-center"><%= order.no %></p>
+
+        <ul class="list-group list-group-unbordered">
+          <% order.order_products.each do |order_product| %>
+            <li class="list-group-item">
+              <p><b><%= order_product.product&.name  %> * <a><%= order_product.number  %></a></b> <span style="text-align: right"><a class="pull-right"><%= order_product.real_price %></a></span></p>
+            </li>
+          <% end %>
+
+          <li class="list-group-item">
+            <b>商品总价格 </b> <a class="pull-right"><%= order.real_total_price %></a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+<% end %>

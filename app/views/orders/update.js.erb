@@ -1,0 +1,25 @@
+<% if @flag %>
+  <% if @project.plate?  %>
+  $('#plate_orders_item').html('<%= j render(partial: 'projects/orders_item', locals: {orders: @project.sample_orders, type: 'plate'})%>');
+  <% else %>
+  $('#normal_orders_item').html('<%= j render(partial: 'projects/orders_item', locals: {orders: @project.default_orders, type: 'order'})%>');
+  <% end %>
+$('#global-modal').modal('hide');
+$("[data-widget='collapse']").click(function() {
+    //Find the box parent
+    var box = $(this).parents(".box").first();
+    //Find the body and the footer
+    var bf = box.find(".box-body, .box-footer");
+    if (!box.hasClass("collapsed-box")) {
+        $(this).html('<i class="fa fa-plus"></i>');
+        box.addClass("collapsed-box");
+        bf.slideUp(1000);
+    } else {
+        $(this).html('<i class="fa fa-minus"></i>');
+        box.removeClass("collapsed-box");
+        bf.slideDown(1000);
+    }
+});
+<% else %>
+$('#form').html('<%= j render "orders/form"%>');
+<% end %>

@@ -1,0 +1,5 @@
+<% if @flag %>
+  location.reload();
+<% else %>
+  $('#form').html('<%= j render "/costs/form"%>');
+<% end %>

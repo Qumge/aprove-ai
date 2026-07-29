@@ -1,0 +1,53 @@
+<%= render 'audits/header' %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.audits.pending_invoice') %></h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.audits.columns.request_number') %></th>
+            <th><%= t('sections.audits.columns.total') %></th>
+            <th><%= t('sections.audits.columns.applicant') %></th>
+            <th><%= t('sections.audits.columns.applied_at') %></th>
+            <th></th>
+          </tr>
+          <% if @invoices.present? %>
+            <% @invoices.each do |invoice| %>
+              <tr>
+                <td><%= invoice.no %></td>
+                <td><%= invoice.amount %></td>
+                <td><%= invoice.user&.name %></td>
+                <td><%= simple_time invoice.created_at %></td>
+                <td>
+                  <% if invoice.may_do_applied? %>
+                  <%= link_to t('sections.audits.approve'), invoice_success_audit_path(invoice), class: 'btn btn-success btn-xs', data: {confirm: t('sections.audits.confirm_approve')} %>
+                  <% end %>
+                  <% if invoice.may_do_failed? %>
+                    <%= link_to t('sections.audits.reject'), failed_notice_audit_path(invoice, type: invoice.class.name), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn btn-danger btn-xs' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" align="center"><%= t('sections.audits.none') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @invoices%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

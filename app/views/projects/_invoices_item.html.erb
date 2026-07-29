@@ -1,0 +1,68 @@
+<style>
+  .table > tbody > tr > td{
+    padding: 2px;
+  }
+</style>
+<script type="text/javascript">
+    function apply_invoice(invoice_id){
+        if(confirm('申请后不可变更，确认申请吗？')){
+            showSpinner();
+            $.ajax({
+                type: 'POST',
+                url: '<%= invoice_apply_invoices_path %>',
+                data: {invoice_id: invoice_id},
+                dataType: 'script',
+                success: function (data) {
+
+                }
+            })
+        }
+    }
+</script>
+<div class="box box-default collapsed-box" style="margin-bottom: 5px;">
+  <div class="box-header with-border">
+    <h4 class="box-title">
+      <% if can?(:edit, :invoices) %>
+        <%= link_to '开票', new_invoice_path, 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' %>
+      <% end %>
+    </h4>
+  </div>
+</div>
+  <% @project.invoices.each do |invoice| %>
+      <div class="box box-default collapsed-box" style="margin-bottom: 5px;">
+        <div class="box-header with-border">
+          <h4 class="box-title">票号<%= invoice.invoice_no %>
+            <% if can?(:edit, :invoices) %>
+            <%= link_to '编辑', edit_invoice_path(@project, invoice_id: invoice.id), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if invoice.can_edit? %>
+            <% end %>
+          </h4>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="展开"><%= ui_icon 'plus' %>
+            </button>
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+          <div class="box-body" style="display: none;border: solid 1px #d2d6de; word-wrap:break-word; overflow-x: scroll">
+            <%= render partial: 'invoices/detail', locals: {invoice: invoice} %>
+            <div class="col-md-12">
+              <div class="col-md-6" style="text-align: left">
+                <b>状态：</b><%= invoice.get_status %>
+                <% if invoice.failed? %><span style="color: red"><%= invoice.audit_failed_reason %></span>
+                <% end %>
+              </div>
+              <div class="col-md-6">
+                <b>合计：</b><%= invoice.total_price %>
+                <span style="text-align: right; float: right">
+                <% if can? :invoice_apply, :invoices %>
+                    <%= link_to '申请', 'JavaScript:void(0)', onclick: "apply_invoice(#{invoice.id})",class: 'btn btn-success btn-xs' if invoice.may_do_apply? %>
+                    <%end %>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        <!-- /.box-body -->
+      </div>
+  <% end %>

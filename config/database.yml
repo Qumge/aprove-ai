@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: <%= ENV.fetch("POSTGRES_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>
+  username: <%= ENV.fetch("POSTGRES_USER", ENV.fetch("USER", "postgres")) %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "") %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("POSTGRES_DB", "aprove_ai_development") %>
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: <%= ENV.fetch("POSTGRES_TEST_DB", "aprove_ai_test") %>
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+  database: <%= ENV.fetch("POSTGRES_DB", "aprove_ai_production") %>

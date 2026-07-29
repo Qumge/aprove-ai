@@ -1,0 +1,64 @@
+<div class="col-md-4" id="order_<%= order.id %>_attachments">
+  <p class="text-muted ">
+    <% if @project.can_do?(type) && (order.wait? || order.failed?) && can?(:upload, :projects) %>
+      <a class="btn btn-xs bg-blue upload-file" id="order_<%= order.id %>_place" href="javascript:void(0)" >
+        <%= ui_icon 'plus' %>
+        <span>订货清单</span>
+      </a>
+      <% else %>
+      <span><b>订货清单:</b></span>
+    <% end %>
+    <% if order.place_file.present? %>
+      <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= order.place_file.preview_url%>" data-file-name="<%= order.place_file.file_name %>">
+        <%= ui_icon 'eye' %><%= show_file_name '订货清单', order.place_file %>
+      </a>
+    <% end %>
+  </p>
+  <p class="text-muted ">
+    <span><b>发货清单:</b></span>
+    <% order.deliver_logs.each do |deliver_log| %>
+      <% if deliver_log.deliver_file.present? %>
+        <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= deliver_log.deliver_file.preview_url%>" data-file-name="<%= deliver_log.deliver_file.file_name %>">
+          <%= ui_icon 'eye' %><%= show_file_name '发货清单', deliver_log.deliver_file %>
+        </a>
+      <% end %>
+    <% end %>
+
+  </p>
+  <p class="text-muted ">
+      <span><b>签收清单:</b></span>
+    <% if order.sign_log.present? && order.sign_log.sign_file.present?  %>
+          <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= order.sign_log.sign_file.preview_url%>" data-file-name="<%= order.sign_log.sign_file.file_name %>">
+            <%= ui_icon 'eye' %><%= show_file_name '签收清单', order.sign_log.sign_file %>
+          </a>
+        <% end %>
+  </p>
+  <p class="text-muted ">
+      <span><b>回款金额（元）:</b> <%= order.payment %></span>
+  </p>
+  <p class="text-muted ">
+    <span><b>备注:</b><span style="font-size:12px;"> <%= order.desc %></span></span>
+  </p>
+</div>
+
+<script type="text/javascript">
+  var sign_<%= order.id %>_uploader;
+  var place_<%= order.id %>_uploader;
+  $(function(){
+      <% if @project.can_do?(type) && (order.wait? || order.failed?) && can?(:upload, :projects) %>
+      var place_option = set_option('order_<%= order.id %>_place');
+      place_<%= order.id %>_uploader = new StorageUploader(place_option);
+      $('.btn-box-tool').click(function(){
+          setTimeout(function(){ place_<%= order.id %>_uploader.refresh(); }, 1000);
+      });
+      <% end %>
+      <%# if can?(:upload, :projects) && (order.deliver? || order.sign?) %>
+<!--      var sign_option = set_option('order_<%#= order.id %>_sign');-->
+<!--      sign_<%#= order.id %>_uploader = new StorageUploader(sign_option);-->
+<!--      $('.btn-box-tool').click(function(){-->
+<!--          setTimeout(function(){ sign_<%#= order.id %>_uploader.refresh(); }, 1000);-->
+<!--      });-->
+      <%# end %>
+  })
+
+</script>

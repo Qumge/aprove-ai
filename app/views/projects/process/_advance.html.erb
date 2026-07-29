@@ -1,0 +1,43 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    预付款
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <span class="timeline-icon bg-green"><%= ui_icon 'file-text' %></span>
+
+  <div class="timeline-item">
+    <div class="form-group">
+
+    </div>
+    <div class="timeline-body">
+      <label for="exampleInputFile">预付请款资料</label>
+      <div >
+        <% if can? :upload, :projects %>
+        <% if @project.can_do? :advance %>
+        <a class="btn btn-xs bg-blue" id="advance" href="#" >
+          <%= ui_icon 'plus' %>
+          <span>选择文件</span>
+        </a>
+        <% end %>
+        <%end %>
+      </div>
+
+      <% if @project.advance.present? %>
+        <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= @project.advance.preview_url%>" data-file-name="<%= @project.advance.file_name %>">
+          <%= ui_icon 'eye' %><%= show_file_name '预付请款资料', @project.advance %>
+        </a>
+        <% if can? :delete_attachment, :projects %>
+        <%= link_to '删除', 'JavaScript:void(0)', onclick: "delete_attachment(#{@project.advance.id}, '#{delete_attachment_project_path @project.id}')",class: 'btn  btn-sm ', style: 'color: red' if @project.can_do? :advance %>
+        <%end %>
+      <% end %>
+      <% if can? :step_event, :projects %>
+      <div style="text-align: right">
+        <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_advance')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :advance %>
+      </div>
+      <%end %>
+    </div>
+  </div>
+</li>

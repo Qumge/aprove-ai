@@ -1,0 +1,47 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    操作模式
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <!--        <i class="fa fa-envelope bg-blue"></i>-->
+  <span class="timeline-icon bg-red"><%= ui_icon 'settings' %></span>
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <div class="form-group">
+        <label>代理商</label>
+        <% if @project.can_do? :pattern %>
+          <% if can? :update_agency, :projects %>
+        <%= select_tag :agency_id, options_for_select(Agent.active_agent.collect{|agent| [agent.name, agent.id]}, @project.agency_id), include_blank: '自营', class: "form-control select2", style: "width: 100%;"%>
+          <%end %>
+          <% else %>
+          <div>
+        <%= @project.agency_name %>
+          </div>
+        <% end %>
+      </div>
+      <% if can? :step_event, :projects %>
+      <div style="text-align: right">
+        <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_pattern')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :pattern %>
+      </div>
+      <%end %>
+    </div>
+  </div>
+</li>
+
+<script type="text/javascript">
+  $('#agency_id').change(function(){
+      showSpinner();
+      $.ajax({
+          type: 'POST',
+          url: '<%= update_agency_project_path @project %>',
+          data: {agency_id: $(this).val()},
+          dataType: 'script',
+          success: function (data) {
+
+          }
+      })
+  })
+</script>

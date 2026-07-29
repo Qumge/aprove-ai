@@ -1,0 +1,70 @@
+<div class="table-responsive col-sm-6">
+  <table class="table">
+    <tbody>
+    <tr>
+      <th style="width:50%">代理公司名</th>
+      <td><%= agent.name %></td>
+    </tr>
+    <tr>
+      <th>代理城市</th>
+      <td><%= agent.city %></td>
+    </tr>
+    <tr>
+      <th>代理商姓名</th>
+      <td><%= agent.username %></td>
+    </tr>
+    <tr>
+      <th>账号</th>
+      <td><%= agent.users.collect{|user| user.login}.join ' / ' %></td>
+    </tr>
+    <tr>
+      <th>联系电话</th>
+      <td><%= agent.phone %></td>
+    </tr>
+    <tr>
+      <th>主营业务</th>
+      <td><%= agent.business %></td>
+    </tr>
+    <tr>
+      <th>申请人</th>
+      <td><%= agent.apply_user&.name %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive col-sm-6">
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>优势资源</th>
+      <td><%= agent.resources %></td>
+    </tr>
+    <tr>
+      <th>目前生意规模</th>
+      <td><%= agent.scale %></td>
+    </tr>
+    <tr>
+      <th>团队人数</th>
+      <td><%= agent.members %></td>
+    </tr>
+    <tr>
+      <th>意向代理产品</th>
+      <td><%= agent.product %></td>
+    </tr>
+    <tr>
+      <th>年业绩预估</th>
+      <td><%= agent.achievement %></td>
+    </tr>
+    <tr>
+      <th>备注</th>
+      <td><%= agent.desc %></td>
+    </tr>
+    <% if agent.failed? %>
+      <tr>
+        <th>审核失败原因</th>
+        <td><%= agent.audit_failed_reason %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

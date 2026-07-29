@@ -1,0 +1,23 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    结束发货
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <!--        <i class="fa fa-envelope bg-blue"></i>-->
+  <span class="timeline-icon bg-blue"><%= ui_icon 'check' %></span>
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <p>
+        结束发货后会生成结算款请款时间
+      </p>
+      <% if can? :step_event, :projects %>
+        <div style="text-align: right">
+          <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_shipment_ended')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :shipment_ended %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</li>

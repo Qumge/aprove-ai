@@ -1,0 +1,15 @@
+<% content_for :content_header do %>
+  <h1>
+    <%= t('sections.invoices.title') %>
+    <small><%= get_title params %></small>
+
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <%=link_to manage_invoices_path do %>
+        <%= ui_icon 'layout-dashboard' %> <%= t('sections.invoices.title') %>
+      <% end %>
+    </li>
+    <li class="active"><%= get_title params %></li>
+  </ol>
+<% end %>

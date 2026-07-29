@@ -1,0 +1,15 @@
+<%= render 'projects/header' %>
+<div class="row">
+  <!-- left column -->
+  <div class="col-md-10">
+    <!-- general form elements -->
+    <div class="box box-primary col-md-6">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= get_title params %></h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <%= render partial: 'projects/form', locals: {project: @project} %>
+    </div>
+  </div>
+</div>

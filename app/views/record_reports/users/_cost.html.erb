@@ -1,0 +1,35 @@
+
+<div class="box box-danger">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= t('sections.reports.sales_expense') %>
+      <% if can? :costs, :record_reports %>
+        <small><%= link_to t('common.more'), costs_record_reports_path(organization_id: params[:organization_id]), class: 'font-a label bg-green' %></small>
+      <% end %>
+    </h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="<%= t('common.close') %>"><%= ui_icon 'minus' %>
+      </button>
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="remove" title="<%= t('common.close') %>"><%= ui_icon 'x' %></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="col-md-3">
+      <ul class="chart-legend clearfix">
+        <% @costs_pie_labels.each_with_index do |label, index| %>
+          <li><span class="chart-legend-swatch" style="background: <%= @chatColor[index] %>"></span><%= label %>: <%= @costs_pie_data[index] %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <canvas id="costs_pie" style="height:250px"></canvas>
+    </div>
+
+  </div>
+  <!-- /.box-body -->
+</div>
+<script type="text/javascript">
+    $(function(){
+        myPieChat('costs_pie', <%= raw @costs_pie_labels %>, <%= raw @costs_pie_data %>);
+    });
+</script>

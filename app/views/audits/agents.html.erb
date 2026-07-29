@@ -1,0 +1,52 @@
+<%= render 'audits/header' %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.audits.pending_agent') %></h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.audits.columns.company') %></th>
+            <th><%= t('sections.audits.columns.agent_name') %></th>
+            <th><%= t('sections.audits.columns.phone') %></th>
+            <th><%= t('sections.audits.columns.applicant') %></th>
+            <th><%= t('sections.audits.columns.status') %></th>
+            <th></th>
+          </tr>
+          <% if @agents.present? %>
+            <% @agents.each do |agent| %>
+              <tr>
+                <td><%= link_to agent.name, agent_path(agent), 'data-toggle' => "modal", 'data-target' => "#global-modal"%></td>
+                <td><%= agent.username %></td>
+                <td><%= agent.phone %></td>
+                <td><%= agent.apply_user&.name %></td>
+                <td><%= agent.get_status %></td>
+                <td>
+                  <%= link_to t('sections.audits.approve'), success_audit_path(agent, type: agent.class.name), class: 'btn btn-success btn-xs', data: {confirm: t('sections.audits.confirm_approve')} %>
+                  <%= link_to t('sections.audits.reject'), failed_notice_audit_path(agent, type: agent.class.name), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn btn-danger btn-xs' %>
+                </td>
+              </tr>
+              <tr></tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="6" align="center"><%= t('sections.audits.none') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @agents%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

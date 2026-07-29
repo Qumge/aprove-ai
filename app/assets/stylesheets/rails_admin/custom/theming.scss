@@ -1,0 +1,150 @@
+body.rails_admin {
+  color: #212529;
+
+  > .navbar {
+    min-height: 56px;
+
+    > .container-fluid {
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+    }
+  }
+
+  .sidebar.btn-toggle-nav {
+    padding: 14px 10px;
+
+    .btn-toggle {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .btn-toggle-nav > li > a {
+      margin-bottom: 2px;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+  }
+
+  .col-sm-9.col-md-10 {
+    padding: 24px 28px 40px;
+
+    > .container-fluid {
+      padding: 0;
+    }
+  }
+
+  .page-header {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+
+    h1,
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+  }
+
+  .breadcrumb {
+    margin-bottom: 16px;
+  }
+
+  .nav-tabs {
+    margin-bottom: 16px;
+
+    .nav-link {
+      font-weight: 500;
+    }
+  }
+
+  .table {
+    margin-bottom: 24px;
+
+    > thead > tr > th,
+    > tbody > tr > td {
+      padding: 10px 12px;
+      vertical-align: middle;
+    }
+
+    > thead > tr > th {
+      white-space: nowrap;
+    }
+
+    .progress {
+      min-width: 96px;
+      margin-bottom: 0;
+    }
+
+    td.links {
+      white-space: nowrap;
+
+      .list-inline {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        margin: 0;
+
+        li {
+          padding: 0;
+        }
+
+        .nav-link {
+          display: inline-flex;
+          width: 30px;
+          height: 30px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .form-control,
+  .form-select {
+    min-height: 38px;
+    border-radius: 4px;
+  }
+
+  #remove_filter {
+    width: 38px;
+    overflow: hidden;
+    padding: 0;
+    font-size: 0;
+    white-space: nowrap;
+
+    .fas {
+      display: inline-block;
+      font-size: 14px;
+    }
+  }
+
+  form .control-group,
+  form .form-group {
+    margin-bottom: 16px;
+  }
+
+  .btn,
+  .modal-content {
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.rails_admin {
+    .col-sm-9.col-md-10 {
+      padding: 18px 14px 32px;
+      overflow-x: auto;
+    }
+
+    .table {
+      min-width: 640px;
+    }
+  }
+}

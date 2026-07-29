@@ -1,0 +1,54 @@
+<div class="row" id="sale-list">
+  <div class="col-md-10">
+    <div class="box">
+      <%= form_tag contract_sales_product_path(@product), method: :get do%>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= @product.no %> - <%= @product.name %> - <%= @product.reference_price %></h3>
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="检索" value="<%= params[:table_search] %>">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="检索"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>合同编号</th>
+            <th>合作方</th>
+            <th>价格</th>
+          </tr>
+          <tr>
+            <% if sales.present? %>
+              <% sales.each do |sale| %>
+              <tr>
+                <td><%= link_to (sale.contract&.no).to_s, contract_path(sale.contract) %></td>
+                <td><%= sale.contract&.partner %></td>
+                <td><%= sale.price %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="3" align="center">没有可显示的内容</td>
+            </tr>
+          <% end %>
+          </tr>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate sales, params: {table_search: params[:table_search]} %>
+        </div>
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

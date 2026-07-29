@@ -1,0 +1,102 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    完善项目资料
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <span class="timeline-icon bg-blue"><%= ui_icon 'file-text' %></span>
+
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+          <h3 class="box-title">项目资料
+            <% if can? :edit_information, :projects %>
+            <%= link_to '编辑', edit_information_project_path(@project), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if @project.can_do? :detail %>
+            <% end %>
+          </h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="展开"><%= ui_icon 'plus' %>
+            </button>
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+
+        <div class="box-body" style="display: none;" >
+          <div class="table-responsive col-sm-6">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>采购</th>
+                <td><%= @project.purchase %></td>
+              </tr>
+              <tr>
+                <th>采购电话</th>
+                <td><%= @project.purchase_phone %></td>
+              </tr>
+              <tr>
+                <th>设计</th>
+                <td><%= @project.design %></td>
+              </tr>
+              <tr>
+                <th>设计电话</th>
+                <td><%= @project.design_phone %></td>
+              </tr>
+              <tr>
+                <th>成本负责人</th>
+                <td><%= @project.cost %></td>
+              </tr>
+              <tr>
+                <th>成本负责人电话</th>
+                <td><%= @project.cost_phone %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive col-sm-6">
+            <table class="table">
+              <tbody>
+              <tr>
+                <th>结算负责人</th>
+                <td><%= @project.settling %></td>
+              </tr>
+              <tr>
+                <th>结算负责人电话</th>
+                <td><%= @project.settling_phone %></td>
+              </tr>
+              <tr>
+                <th>施工方</th>
+                <td><%= @project.constructor %></td>
+              </tr>
+              <tr>
+                <th>施工方电话</th>
+                <td><%= @project.constructor_phone %></td>
+              </tr>
+              <tr>
+                <th>监理</th>
+                <td><%= @project.supervisor %></td>
+              </tr>
+              <tr>
+                <th>监理电话</th>
+                <td><%= @project.supervisor_phone %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- /.box-body -->
+      </div>
+      <div style="text-align: right">
+        <% if can? :step_event, :projects %>
+        <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_detail')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :detail %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,26 @@
+<%= simple_form_for contract do |f| %>
+  <div class="box-body">
+    <%= f.input :no, label: t('sections.forms.contract.number') %>
+    <%= f.input :name, label: t('sections.forms.contract.details') %>
+    <%= f.input :partner, label: t('sections.forms.contract.partner') %>
+    <%= f.input :product, label: t('sections.forms.contract.product_line') %>
+    <div class="form-group">
+      <label><%= t('sections.forms.contract.validity') %>:</label>
+
+      <div class="input-group date">
+        <div class="input-group-addon">
+          <%= ui_icon 'calendar-days' %>
+        </div>
+        <input type="text" class="form-control pull-right datepicker readonly" value='<%=simple_time contract.valid_date %>' id="contract_valid_date" name="contract[valid_date]" readonly>
+      </div>
+      <!-- /.input group -->
+    </div>
+    <%= f.input :cycle, label: t('sections.forms.contract.supply_cycle') %>
+    <%= f.input :advance_time, label: t('sections.forms.contract.advance_days') %>
+    <%= f.input :process_time, label: t('sections.forms.contract.progress_days') %>
+    <%= f.input :settlement_time, label: t('sections.forms.contract.settlement_days') %>
+    <%= f.input :tail_time, label: t('sections.forms.contract.final_days') %>
+    <%= f.input :others, label: t('sections.forms.contract.terms') %>
+    <%= f.button :submit, t('common.submit'), class: "btn btn-primary" %>
+  </div>
+<% end %>

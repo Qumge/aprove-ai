@@ -1,0 +1,64 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label"></h4>
+  </div>
+  <%= simple_form_for(@cost, html: {class: 'form-horizontal group_form', onkeydown: "if(event.keyCode==13)return false;"}, wrapper: :horizontal_form) do |f| %>
+    <div class="modal-body" >
+      <%= f.input :user_id, as: :select, collection: User.all.collect{|user| ["#{user.role&.localized_name}-#{user.name}", user.id]}, input_html: { class: 'select2', width: '100%' }  %>
+      <%= f.input :cost_category_id, as: :select, collection: CostCategory.all.collect{|category| [category.name, category.id]}, input_html: { class: 'select2', width: '100%' }  %>
+      <%= f.input :amount %>
+      <%= f.input :purpose %>
+
+      <div class="form-group row string optional cost_occur_time">
+        <label class="col-sm-3 col-form-label string optional" for="cost_occur_time"><%= t('sections.costs.columns.occurred_at') %> <abbr title="required">*</abbr></label>
+        <div class="col-sm-9">
+          <div class="input-group date">
+            <input type="text" class="form-control pull-right datepicker readonly" value='<%=simple_time @cost.occur_time %>' id="cost_occur_time" name="cost[occur_time]" readonly>
+            <div class="input-group-addon">
+              <%= ui_icon 'calendar-days' %>
+            </div>
+          </div>
+          <div class="invalid-feedback"><%= @cost.errors.messages[:occur_time].present? ? "#{I18n.t 'activerecord.attributes.cost.occur_time'} #{@cost.errors.messages[:occur_time].first}" : '' %></div>
+        </div>
+      </div>
+
+
+    </div>
+  <% end %>
+
+  <div class="modal-footer">
+    <%= button_tag t('common.save'), class: 'btn btn-primary commit commit', data: { disable_with: t('common.saving') } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('common.back') %></button>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.commit').click(function(){
+            $.ajax({
+                type: "POST",
+                url: $('.group_form').attr('action'),
+                data: $('.group_form').serialize(),
+                dataType: 'script',
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    //接收后台返回的结果
+                }
+            });
+
+        });
+
+        $('.select2').select2({
+            width: '80%'
+        });
+
+        $('.datepicker').datepicker({
+            autoclose: true,
+            language: 'zh-cn'
+        });
+    });
+</script>

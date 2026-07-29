@@ -1,0 +1,41 @@
+<%= render 'projects/header' %>
+<div class="row">
+  <div class="box-body">
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs" data-turbolinks="false">
+        <li class="active"><a href="#tab_1" data-toggle="tab">项目动态</a></li>
+        <li><a href="#tab_2" data-toggle="tab">项目操作</a></li>
+        <li><a href="#tab_3" data-toggle="tab">基本信息</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+          <% if @project.active? %>
+            <%= render 'projects/process' %>
+          <% else %>
+            <p style="color: red">项目未通过审核</p>
+          <% end %>
+        </div>
+        <div class="tab-pane" id="tab_2">
+          <%= render 'projects/control' %>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_3">
+          <%= render 'projects/detail' %>
+        </div>
+        <!-- /.tab-pane -->
+      </div>
+      <!-- /.tab-content -->
+    </div>
+    <!-- nav-tabs-custom -->
+  </div>
+
+  <!-- 初始化按钮 start -->
+  <div class="col-md-12">
+
+  </div>
+  <!-- 初始化按钮 end -->
+
+  <!-- 初始化配置 start -->
+
+
+</div>

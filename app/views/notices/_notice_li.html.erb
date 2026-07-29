@@ -1,0 +1,13 @@
+<li class="<%= notice.readed ? 'done' : '' %>" id="notice_<%= notice.id %>">
+  <!-- drag handle -->
+  <span class="handle ui-sortable-handle">
+                        <%= ui_icon 'ellipsis-vertical' %>
+                      </span>
+  <!-- checkbox -->
+  <%= check_box_tag "check_#{notice.id}", notice.id, notice.readed, class: 'notice_check' %>
+  <!-- todo text -->
+  <span class="text notice_span" data-id="<%= notice.id %>" onclick="redirect_notice('<%= notice.id %>', '<%= redirect_path notice %>')"><%=notice.content%></span>
+  <!-- Emphasis label -->
+  <div class="pull-right"><small><%= ui_icon 'clock-3' %> <%= simple_time_mini notice.created_at %></small></div>
+  <!-- General tools such as edit or delete-->
+</li>

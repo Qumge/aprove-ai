@@ -1,0 +1,37 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.reports.time') %></th>
+      <th><%= t('sections.reports.project_category') %></th>
+      <th><%= t('sections.reports.customer') %></th>
+      <th><%= t('sections.reports.project') %></th>
+      <th><%= t('sections.reports.ordered_amount') %></th>
+      <th><%= t('sections.reports.delivered_amount') %></th>
+      <th><%= t('sections.reports.payment_amount') %></th>
+    </tr>
+    <% if @projects_array.present? %>
+      <% @projects_array.each do |data| %>
+          <tr>
+            <td><%= data[0] %></td>
+            <td><%= data[1].category&.name %></td>
+            <td><%= data[1].company&.name %></td>
+            <td><%= data[1].name %></td>
+            <td><%= (@applied_hash[data[0]].present? && @applied_hash[data[0]][data[1]].present?) ? @applied_hash[data[0]][data[1]] : 0 %></td>
+            <td><%= (@deliver_hash[data[0]].present? && @deliver_hash[data[0]][data[1]].present?) ? @deliver_hash[data[0]][data[1]] : 0 %></td>
+            <td><%= data[2] %></td>
+          </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="7" align="center"><%= t('common.empty') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @projects_array, remote: true, params: params%>
+  </div>
+
+</div>

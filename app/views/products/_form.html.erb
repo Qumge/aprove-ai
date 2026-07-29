@@ -1,0 +1,51 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label"></h4>
+  </div>
+  <%= simple_form_for(@product, html: {class: 'form-horizontal group_form', onkeydown: "if(event.keyCode==13)return false;"}, wrapper: :horizontal_form) do |f| %>
+    <div class="modal-body" >
+      <%= f.input :no, label: t('sections.forms.product.code') %>
+      <%= f.input :name, label: t('sections.forms.product.name') %>
+      <%= f.input :product_no, label: t('sections.forms.product.model') %>
+      <%= f.input :product_category_id, as: :select, collection: ProductCategory.all.collect{|p| [p.name, p.id]} %>
+      <%= f.input :reference_price, label: t('sections.forms.product.price') %>
+      <%= f.input :unit, label: t('sections.forms.product.unit') %>
+      <%= f.input :brand %>
+      <%= f.input :norms %>
+      <%= f.input :market_price %>
+      <%= f.input :acquisition_price %>
+      <%= f.input :freight %>
+      <%= f.input :color %>
+      <%= f.input :desc %>
+    </div>
+  <% end %>
+
+  <div class="modal-footer">
+    <%= button_tag t('common.save'), class: 'btn btn-primary commit commit', data: { disable_with: t('common.saving') } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('common.back') %></button>
+  </div>
+</div>
+<script tye="text/javascript">
+    //ajax提交表单
+    $(function(){
+        $('.commit').click(function(){
+            showSpinner();
+            $.ajax({
+                type: "POST",
+                url: $('.group_form').attr('action'),
+                data: $('.group_form').serialize(),
+                dataType: 'script',
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    //接收后台返回的结果
+                }
+            });
+
+        })
+    });
+</script>
+

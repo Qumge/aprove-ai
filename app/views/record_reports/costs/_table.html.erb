@@ -1,0 +1,35 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.reports.time') %></th>
+      <th><%= t('sections.reports.person') %></th>
+      <% if params[:cost_category_id].present? %>
+        <th><%= t('sections.reports.expense_type') %></th>
+        <%end %>
+      <th><%= t('sections.reports.expense') %></th>
+    </tr>
+    <% if @costs_array.present? %>
+      <% @costs_array.each do |data| %>
+            <tr>
+              <td><%= data[0] %></td>
+              <td><%= data[1]&.name %></td>
+              <% if params[:cost_category_id].present? %>
+                <td><%= CostCategory.find_by(id: params[:cost_category_id])&.name %></td>
+              <%end %>
+              <td><%= data[2] %></td>
+            </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="3" align="center"><%= t('common.empty') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @costs_array, remote: true, params: params%>
+  </div>
+
+</div>

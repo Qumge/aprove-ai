@@ -1,0 +1,18 @@
+<%= render 'dynamic_reports/header' %>
+<div class="row" style="padding:15px;">
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.report') %></h3>
+      <%= link_to t('common.export'), dynamic_reports_path(request.query_parameters.merge(format: :xls)), id: 'reports' %>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+      <%= render 'dynamic_reports/search/filter' %>
+    </div>
+    <div id="datas" style="overflow-x: scroll; padding:15px;" class="datas">
+      <%#= render 'dynamic_reports/datas' %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,6 @@
+<% if @flag %>
+alert('短信已发送')
+location.reload();
+<% else %>
+$('#deliver').html('<%= j render "manage_orders/deliver"%>');
+<% end %>

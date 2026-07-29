@@ -1,0 +1,64 @@
+<div class="table-responsive col-sm-6">
+  <table class="table">
+    <tbody>
+    <tr>
+      <th style="width:50%">工程名</th>
+      <td><%= report.name %></td>
+    </tr>
+    <tr>
+      <th>项目地址</th>
+      <td><%= report.address %></td>
+    </tr>
+    <tr>
+      <th>施工单位</th>
+      <td><%= report.builder %></td>
+    </tr>
+    <tr>
+      <th>联系电话</th>
+      <td><%= report.phone %></td>
+    </tr>
+    <tr>
+      <th>项目类型</th>
+      <td><%= report.project_type %></td>
+    </tr>
+    <tr>
+      <th>工程进度</th>
+      <td><%= report.project_step%></td>
+    </tr>
+    <tr>
+      <th>采购模式</th>
+      <td><%= report.purchase_type %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive col-sm-6">
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>工程规模</th>
+      <td><%= report.scale %></td>
+    </tr>
+    <tr>
+      <th>需求产品</th>
+      <td><%= report.product %></td>
+    </tr>
+    <tr>
+      <th>预计供货时间</th>
+      <td><%= report.supply_time %></td>
+    </tr>
+    <tr>
+      <th>项目来源</th>
+      <td><%= report.source %></td>
+    </tr>
+    <tr>
+      <th>报备人</th>
+      <td><%= report.user&.name %></td>
+    </tr>
+    <tr>
+      <th>备注</th>
+      <td><%= report.desc %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

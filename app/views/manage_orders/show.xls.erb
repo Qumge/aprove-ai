@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="订单详情">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">订单厂商</Data></Cell>
+        <Cell><Data ss:Type="String">产品名</Data></Cell>
+        <Cell><Data ss:Type="String">数量</Data></Cell>
+        <Cell><Data ss:Type="String">战略价</Data></Cell>
+        <Cell><Data ss:Type="String">单价（特价）</Data></Cell>
+        <Cell><Data ss:Type="String">金额</Data></Cell>
+        <Cell><Data ss:Type="String">备注/特殊要求</Data></Cell>
+      </Row>
+      <% @order.order_products.each do |order_product| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @order.factory&.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= order_product.product&.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= order_product.number %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= order_product.product.sale(@order.project)&.price %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= order_product.discount_price %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= order_product.discount_total_price %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @order.desc %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -1,0 +1,24 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    结清确认
+                  </span>
+</li>
+<!-- /.timeline-label -->
+<!-- timeline item -->
+<li>
+  <!--        <i class="fa fa-envelope bg-blue"></i>-->
+  <span class="timeline-icon bg-blue"><%= ui_icon 'check' %></span>
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <% if @project.can_do_next? :confirm %>
+        <% if can? :step_event, :projects %>
+        <a data-toggle="modal" class="btn btn-xs bg-blue" onclick="step_event('done_confirm', '确定结清该项目吗？')">
+          确认结清
+        </a>
+        <%end %>
+      <% else %>
+      已结清
+      <% end %>
+    </div>
+  </div>
+</li>

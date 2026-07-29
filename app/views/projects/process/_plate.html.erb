@@ -1,0 +1,43 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    样板房
+                  </span>
+</li>
+<!-- /.timeline-label -->
+
+<li>
+  <style>
+    .table > tbody > tr > td{
+      padding: 2px;
+    }
+  </style>
+  <span class="timeline-icon bg-orange"><%= ui_icon 'shopping-cart' %></span>
+
+  <div class="timeline-item">
+    <div class="timeline-body">
+      <div class="box box-default collapsed-box" style="margin-bottom: 5px;">
+
+        <div class="box-header with-border">
+          <h4 class="box-title">
+            <% if can? :new, :orders %>
+            <%= link_to '样品申请', new_order_path(@project, type: 'sample'), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn' if @project.can_do? :plate %>
+            <% end %>
+          </h4>
+
+          <div class="box-tools pull-right">
+            <!--            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>-->
+            <!--            </button>-->
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+
+
+      </div>
+      <%= render partial: 'projects/orders_item', locals: {orders: @project.sample_orders, type: 'plate'}%>
+      <div style="text-align: right">
+        <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_plate')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :plate %>
+      </div>
+    </div>
+  </div>
+</li>

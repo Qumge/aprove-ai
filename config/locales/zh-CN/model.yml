@@ -1,0 +1,156 @@
+zh-CN:
+  activerecord:
+    models:
+      role: '角色'
+      organization: '组织架构'
+      resource: '权限资源'
+      user: '用户'
+      contract: '战略合同'
+      product: '产品'
+    attributes:
+      user:
+        login: "帐号"
+        email: "邮箱"
+        password: "密码"
+        phone: '手机号码'
+        password_confirmation: "重复密码"
+        role_id: '角色'
+        agent_id: '代理商'
+        title: '职务'
+        name: '姓名'
+      organization:
+        name: '组织名'
+        created_at: '创建时间'
+        updated_at: '最后修改时间'
+      project:
+        name: '项目名'
+        a_name: '甲方名称'
+        product_category: '产品品类'
+        address: '项目地址'
+        city: '城市'
+        supplier_type: '供货方式'
+        strategic: '是否战略'
+        estimate: '预估规模'
+        butt_name: '对接人名'
+        butt_title: '对接人职务'
+        butt_phone: '对接人电话'
+        purchase: '采购'
+        purchase_phone: '采购电话'
+        design: '设计'
+        design_phone: '设计电话'
+        cost: '成本负责人'
+        cost_phone: '成本负责人电话'
+        settling: '结算负责人'
+        settling_phone: '结算负责人电话'
+        constructor: '施工方'
+        constructor_phone: '施工方电话'
+        supervisor: '监理'
+        supervisor_phone: '监理电话'
+        contract_ids: '战略合作方'
+        category_id: '项目类别'
+        company_id: '甲方名称'
+        approval_time: '项目批准时间'
+        deliver_amount: '项目发货金额'
+        payment: '项目回款金额'
+        payment_percent: '项目回款百分比'
+      contract:
+        name: '明细'
+        no: '合同编号'
+        product: '产品品类'
+        partner: '战略合作方'
+        valid_date: '有效期限'
+        cycle: '供货周期'
+        advance_time: '预付款请款时间'
+        process_time: '进度款请款时间'
+        settlement_time: '结算款请款时间'
+        tail_time: '尾款请款时间'
+        others: '合同其他关键条款'
+      sale:
+        product_id: '序号 / 产品型号'
+        price: '合同价'
+        desc: '备注'
+      order_product:
+        product_id: '产品'
+        number: '数量'
+        discount: '折扣'
+        discount_price: '销售单价'
+      agent:
+        name: '代理公司名'
+        city: '代理城市'
+        username: '代理商姓名'
+        phone: '电话'
+      product:
+        product_no: '产品型号'
+        no: '产品代码'
+        name: '产品名'
+        reference_price: '单价'
+        unit: '单位'
+        brand: '品牌'
+        norms: '规格尺寸'
+        market_price: '市场价'
+        acquisition_price: '集采价'
+        freight: '运费'
+        product_category_id: '产品类型'
+        color: '外观颜色'
+        desc: '备注'
+      report:
+        project_id: '项目名'
+        name: '工程名'
+        address: '项目地址'
+        builder: '施工单位'
+        project_type: '项目类型'
+        project_step: '工程进度'
+        purchase_type: '采购模式'
+        scale: '工程规模'
+        product: '需求产品'
+        supply_time: '预计供货时间'
+        source: '项目来源'
+        desc: '其他信息'
+        user_id: '报备人'
+        phone: '联系电话'
+      cost:
+        user_id: '销售人员'
+        amount: '费用金额'
+        purpose: '费用用途'
+        occur_time: '产生时间'
+        cost_category_id: '费用类型'
+      train:
+        name: '资料名'
+      competitor:
+        name: '文件名'
+      order:
+        payment: '进度款'
+        no: '订单编号'
+        applied_at: '下单时间'
+        total_price: '下单金额'
+        deliver_amount: '发货金额'
+        payment_percent: '回款百分比'
+        factory_id: '订单厂商'
+        desc: '备注'
+      deliver:
+        name: '物流联系人'
+        number: '货物件数'
+        phone: '联系电话'
+        phone_to: '接收人电话'
+      payment_log:
+        amount: '进度款'
+        payment_at: '回款时间'
+      invoice:
+        amount: '金额'
+      deliver_log:
+        amount: '发货金额'
+        payment_at: '发货时间'
+      company:
+        name: '公司名'
+      category:
+        name: '项目类型'
+      product_category:
+        name: '产品类型'
+      factory:
+        name: '厂商名'
+        address: '厂商地址'
+
+
+
+
+

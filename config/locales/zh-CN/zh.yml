@@ -1,0 +1,105 @@
+zh-CN:
+  meta:
+    product_name: "Aprove AI"
+    description: "连接项目、审批、订单与交付的开源运营平台。"
+  language:
+    english: "English"
+    chinese: "中文"
+  welcome:
+    nav:
+      label: "主导航"
+      capabilities: "产品能力"
+      open_source: "开源"
+      login: "登录"
+    hero:
+      kicker: "OPEN SOURCE PROJECT OPERATIONS"
+      title_html: "把复杂项目，<br>推进成清晰结果。"
+      lead: "Aprove AI 将项目、审批、订单、回款和交付放进同一个工作空间，让团队始终知道下一步该做什么。"
+      primary: "进入工作台"
+      secondary: "了解产品"
+      scroll: "向下探索"
+    capabilities:
+      kicker: "ONE SHARED VIEW"
+      title: "项目的每个关键节点，都有迹可循。"
+      lead: "减少信息散落与反复确认，让业务动作自然衔接。"
+      project:
+        title: "项目全景"
+        body: "从立项到结项，集中查看负责人、客户、进度和关键资料。"
+      approval:
+        title: "审批协同"
+        body: "清楚呈现待办、状态与操作记录，让流程快速向前。"
+      insight:
+        title: "经营洞察"
+        body: "连接订单、开票、回款与费用，用真实数据支持决策。"
+    open_source:
+      kicker: "BUILT IN THE OPEN"
+      title: "属于团队，也属于社区。"
+      body: "Aprove AI 基于 Ruby on Rails 构建，保持透明、可部署、可扩展。你可以按自己的业务方式继续塑造它。"
+    footer: "开源项目运营平台"
+  auth:
+    intro_title_html: "让项目协作<br>保持清晰、向前。"
+    intro_body: "面向项目、订单、审批与交付的一体化协作空间。"
+    kicker: "欢迎回来"
+    title: "登录工作空间"
+    subtitle: "使用你的账号继续处理项目事务。"
+    account: "账号"
+    password: "密码"
+    help: "忘记账号或密码，请联系管理员。"
+    submit: "登录"
+  navigation:
+    console: "工作台"
+    projects: "项目"
+    approvals: "审批流程"
+    orders: "订单管理"
+    invoices: "开票管理"
+    agents: "代理商"
+    contracts: "战略合同"
+    products: "产品"
+    costs: "费用"
+    training: "培训资料"
+    competitors: "竞品信息"
+    reports: "报表"
+    today: "今日看板"
+    performance: "人员业绩"
+    team_costs: "人员费用"
+    dynamic_reports: "动态报表"
+    files: "文件管理"
+    admin: "后台管理"
+    notifications: "通知"
+    sign_out: "退出"
+    language: "语言"
+    footer: "开源项目管理平台"
+  projects:
+    title: "项目管理"
+    all: "全部项目"
+    new: "新建项目"
+    filters:
+      all_statuses: "全部状态"
+      all_payments: "全部回款进度"
+      search: "搜索项目、客户或负责人"
+      submit: "搜索"
+    columns:
+      payment: "回款百分比"
+      project: "项目"
+      customer: "甲方"
+      owner: "负责人"
+      status: "状态"
+    actions:
+      edit: "编辑"
+      apply: "申请"
+      confirm_apply: "确认申请吗？"
+    empty: "没有可显示的内容"
+    statuses:
+      wait: "待审批"
+      project_manager_audit: "项目经理已审批"
+      regional_audit: "大区经理已审批"
+      active: "进行中"
+      finish: "已完结"
+      overdue: "逾期"
+      failed: "审核失败"
+  page_titles:
+    projects:
+      index: "项目列表"
+      new: "立项"
+      show: "项目详情"
+      edit: "项目编辑"

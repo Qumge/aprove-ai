@@ -1,0 +1,62 @@
+<div class="row" style="padding-left: 15px; padding-right: 15px;">
+  <%= form_tag dynamic_reports_path, class: "form-horizontal", remote: true, method: 'get' do %>
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs" data-turbolinks="false">
+        <li class="active"><a href="#tab_1" data-toggle="tab"><%= t('sections.dynamic_reports.select_module') %></a></li>
+        <li><a href="#tab_2" data-toggle="tab"><%= t('sections.dynamic_reports.related_module') %></a></li>
+        <li><a href="#tab_3" data-toggle="tab"><%= t('sections.dynamic_reports.filters') %></a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+          <%= render 'dynamic_reports/search/model' %>
+        </div>
+        <div class="tab-pane" id="tab_2">
+          <%= render 'dynamic_reports/search/columns' %>
+
+        </div>
+
+        <div class="tab-pane" id="tab_3">
+          <%= render 'dynamic_reports/search/search' %>
+        </div>
+        <!-- /.tab-pane -->
+      </div>
+      <div class="box-footer">
+<!--        <button type="submit" class="btn btn-default">Cancel</button>-->
+        <button type="submit" class="btn btn-info pull-right" id="submit"><%= t('sections.dynamic_reports.generate') %></button>
+      </div>
+      <!-- /.tab-content -->
+    </div>
+  <% end %>
+
+</div>
+<script type="text/javascript">
+  $(function(){
+      $('#model_type').change(function(e){
+          var model_type = $(this).val();
+          if(model_type == 'applied'){
+              show_column('products');
+              show_column('product_categories');
+              show_column('order_products');
+              show_column('sales');
+          }else{
+              hide_column('products');
+              hide_column('product_categories');
+              hide_column('order_products');
+              hide_column('sales');
+          }
+      });
+      $('#submit').click(function(e){
+          showSpinner();
+      })
+  });
+
+  function show_column(id){
+      $('#' + id).show();
+      $('#' + id + ' input').removeAttr("disabled");
+  }
+  function hide_column(id){
+      $('#' + id).hide();
+      $('#' + id + ' input').attr("disabled","disabled");
+  }
+
+</script>

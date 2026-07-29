@@ -1,0 +1,105 @@
+en:
+  meta:
+    product_name: "Aprove AI"
+    description: "An open-source operations platform connecting projects, approvals, orders, and delivery."
+  language:
+    english: "English"
+    chinese: "中文"
+  welcome:
+    nav:
+      label: "Main navigation"
+      capabilities: "Capabilities"
+      open_source: "Open source"
+      login: "Sign in"
+    hero:
+      kicker: "OPEN SOURCE PROJECT OPERATIONS"
+      title_html: "Turn complex projects<br>into clear outcomes."
+      lead: "Aprove AI brings projects, approvals, orders, payments, and delivery into one workspace, so every team knows what comes next."
+      primary: "Open workspace"
+      secondary: "Explore the product"
+      scroll: "Explore"
+    capabilities:
+      kicker: "ONE SHARED VIEW"
+      title: "Every critical project milestone, clearly accounted for."
+      lead: "Keep information together and handoffs visible, so work moves forward naturally."
+      project:
+        title: "Project overview"
+        body: "Track owners, customers, progress, and key documents from kickoff to close."
+      approval:
+        title: "Approval workflows"
+        body: "Make tasks, status, and decision history clear so reviews move quickly."
+      insight:
+        title: "Business insight"
+        body: "Connect orders, invoices, payments, and costs to make decisions from real data."
+    open_source:
+      kicker: "BUILT IN THE OPEN"
+      title: "Built for teams. Open to the community."
+      body: "Aprove AI is built with Ruby on Rails and designed to stay transparent, deployable, and extensible. Shape it around the way your team works."
+    footer: "Open-source project operations platform"
+  auth:
+    intro_title_html: "Keep project work<br>clear and moving."
+    intro_body: "One workspace for projects, orders, approvals, and delivery."
+    kicker: "WELCOME BACK"
+    title: "Sign in to your workspace"
+    subtitle: "Use your account to continue managing project operations."
+    account: "Account"
+    password: "Password"
+    help: "Contact an administrator if you forgot your account or password."
+    submit: "Sign in"
+  navigation:
+    console: "Workspace"
+    projects: "Projects"
+    approvals: "Approvals"
+    orders: "Order management"
+    invoices: "Invoice management"
+    agents: "Partners"
+    contracts: "Strategic contracts"
+    products: "Products"
+    costs: "Expenses"
+    training: "Training"
+    competitors: "Competitors"
+    reports: "Reports"
+    today: "Today"
+    performance: "Team performance"
+    team_costs: "Team expenses"
+    dynamic_reports: "Custom reports"
+    files: "Files"
+    admin: "Administration"
+    notifications: "Notifications"
+    sign_out: "Sign out"
+    language: "Language"
+    footer: "Open-source project operations"
+  projects:
+    title: "Project management"
+    all: "All projects"
+    new: "New project"
+    filters:
+      all_statuses: "All statuses"
+      all_payments: "All payment progress"
+      search: "Search projects, customers, or owners"
+      submit: "Search"
+    columns:
+      payment: "Payment progress"
+      project: "Project"
+      customer: "Customer"
+      owner: "Owner"
+      status: "Status"
+    actions:
+      edit: "Edit"
+      apply: "Submit"
+      confirm_apply: "Submit this project for approval?"
+    empty: "No projects to display"
+    statuses:
+      wait: "Pending approval"
+      project_manager_audit: "Project manager approved"
+      regional_audit: "Regional manager approved"
+      active: "In progress"
+      finish: "Completed"
+      overdue: "Overdue"
+      failed: "Approval failed"
+  page_titles:
+    projects:
+      index: "Projects"
+      new: "New project"
+      show: "Project details"
+      edit: "Edit project"

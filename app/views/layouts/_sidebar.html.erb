@@ -1,0 +1,191 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="" class="img-circle" alt="User Image">
+        <canvas class='canvas' style="display:none" first_name="<%= current_user.name.present? ? current_user.name[0].upcase : 'D' %>"></canvas>
+      </div>
+      <div class="pull-left info">
+        <p><%= current_user.name %></p>
+        <a href="javascript:void(0);"><%= current_user.title %></a>
+      </div>
+    </div>
+    <!-- search form -->
+    <!-- /.search form -->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header"><%= ui_icon 'layout-dashboard' %><span><%= t('navigation.console') %></span></li>
+      <% if can? :index, :projects %>
+      <li class="<%= active_class params, 'projects' %>">
+        <%= link_to projects_path do %>
+          <%= ui_icon 'building-2' %> <span><%= t('navigation.projects') %></span>
+        <% end %>
+      </li>
+      <%end %>
+
+      <% if can? :index, :audits %>
+      <li class="<%= active_class params, 'audits' %>">
+        <%= link_to audits_path do %>
+          <%= ui_icon 'clipboard-check' %> <span><%= t('navigation.approvals') %></span>
+          <span class="pull-right-container">
+            </span>
+        <% end %>
+      </li>
+      <% end %>
+
+      <% if can? :index, :manage_orders %>
+      <li class="<%= active_class params, 'manage_orders' %>">
+        <%= link_to manage_orders_path do %>
+          <%= ui_icon 'shopping-cart' %> <span><%= t('navigation.orders') %></span>
+        <% end %>
+      </li>
+      <%end %>
+
+      <% if can? :index, :manage_invoices %>
+        <li class="<%= active_class params, 'manage_invoices' %>">
+          <%= link_to manage_invoices_path do %>
+            <%= ui_icon 'receipt-text' %> <span><%= t('navigation.invoices') %></span>
+          <% end %>
+        </li>
+      <%end %>
+
+      <% if can? :index, :agents %>
+      <li class="<%= active_class params, 'agents' %>">
+        <%= link_to agents_path do %>
+          <%= ui_icon 'handshake' %> <span><%= t('navigation.agents') %></span>
+        <% end %>
+      </li>
+      <%end %>
+
+      <% if can? :index, :contracts %>
+      <li class="<%= active_class params, 'contracts' %>">
+        <%= link_to contracts_path do %>
+          <%= ui_icon 'file-signature' %> <span><%= t('navigation.contracts') %></span>
+        <% end %>
+      </li>
+      <%end %>
+
+      <% if can? :index, :products %>
+      <li class="<%= active_class params, 'products' %>">
+        <%= link_to products_path do %>
+          <%= ui_icon 'package' %> <span><%= t('navigation.products') %></span>
+        <% end %>
+      </li>
+      <% end %>
+
+      <% if can? :index, :costs %>
+      <li class="<%= active_class params, 'costs' %>">
+        <%= link_to costs_path do %>
+          <%= ui_icon 'wallet-cards' %> <span><%= t('navigation.costs') %></span>
+        <% end %>
+      </li>
+      <% end %>
+
+      <% if can? :index, :trains %>
+      <li class="<%= active_class params, 'trains' %>">
+        <%= link_to trains_path do %>
+          <%= ui_icon 'graduation-cap' %> <span><%= t('navigation.training') %></span>
+        <% end %>
+      </li>
+      <%end %>
+
+      <% if can? :index, :competitors %>
+      <li class="<%= active_class params, 'competitors' %>">
+        <%= link_to competitors_path do %>
+          <%= ui_icon 'scan-search' %> <span><%= t('navigation.competitors') %></span>
+        <% end %>
+      </li>
+      <% end %>
+
+
+      <% if can? :index, :record_reports %>
+      <li class="treeview <%= active_class params, 'record_reports' %>">
+        <a href="javascript:void(0)">
+          <%= ui_icon 'chart-no-axes-combined' %>
+          <span><%= t('navigation.reports') %></span>
+          <span class="pull-right-container">
+              <%= ui_icon 'chevron-left', class: 'pull-right tree-arrow' %>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="<%= active_class params, 'record_reports', 'index' %>">
+            <%= link_to record_reports_path do %>
+              <%= ui_icon 'gauge' %> <span><%= t('navigation.today') %></span>
+            <% end %>
+          </li>
+          <% if can? :orders, :record_reports %>
+          <li class="<%= active_class params, 'record_reports', 'orders' %>">
+            <%= link_to orders_record_reports_path do %>
+              <%= ui_icon 'shopping-cart' %> <span><%= t('navigation.orders') %></span>
+            <% end %>
+          </li>
+          <% end %>
+          <% if can? :orders, :record_reports %>
+            <li class="<%= active_class params, 'record_reports', 'invoices' %>">
+              <%= link_to invoices_record_reports_path do %>
+                <%= ui_icon 'receipt-text' %> <span><%= t('navigation.invoices') %></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if can? :projects, :record_reports %>
+            <li class="<%= active_class params, 'record_reports', 'projects' %>">
+              <%= link_to projects_record_reports_path do %>
+                <%= ui_icon 'building-2' %> <span><%= t('navigation.projects') %></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if can? :products, :record_reports %>
+            <li class="<%= active_class params, 'record_reports', 'products' %>">
+              <%= link_to products_record_reports_path do %>
+                <%= ui_icon 'package' %> <span><%= t('navigation.products') %></span>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if can? :users, :record_reports %>
+            <li class="<%= active_class params, 'record_reports', 'users' %>">
+              <%= link_to users_record_reports_path do %>
+                <%= ui_icon 'users-round' %> <span><%= t('navigation.performance') %></span>
+              <% end %>
+            </li>
+          <% end %>
+
+          <% if can? :costs, :record_reports %>
+            <li class="<%= active_class params, 'record_reports', 'costs' %>">
+              <%= link_to costs_record_reports_path do %>
+                <%= ui_icon 'badge-dollar-sign' %> <span><%= t('navigation.team_costs') %></span>
+              <% end %>
+            </li>
+          <% end %>
+
+        </ul>
+      </li>
+      <% end %>
+      <% if can? :index, :dynamic_reports %>
+        <li class="<%= active_class params, 'dynamic_reports' %>">
+          <%= link_to dynamic_reports_path do %>
+            <%= ui_icon 'chart-column-big' %> <span><%= t('navigation.dynamic_reports') %></span>
+          <% end %>
+        </li>
+      <% end %>
+      <% if can? :index, :attachments %>
+        <li class="<%= active_class params, 'attachments' %>">
+          <%= link_to attachments_path do %>
+            <%= ui_icon 'files' %> <span><%= t('navigation.files') %></span>
+          <% end %>
+        </li>
+      <% end %>
+      <% if current_user.has_role? 'super_admin' %>
+      <li>
+        <%= link_to rails_admin_path do %>
+          <%= ui_icon 'settings' %> <span><%= t('navigation.admin') %></span>
+        <% end %>
+      </li>
+      <%end %>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

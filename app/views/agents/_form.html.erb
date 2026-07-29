@@ -1,0 +1,16 @@
+<%= simple_form_for agent do |f| %>
+  <div class="box-body">
+    <%= f.input :name, label: t('sections.forms.agent.company') %>
+    <%= f.input :city, label: t('sections.forms.agent.city') %>
+    <%= f.input :username, label: t('sections.forms.agent.name') %>
+    <%= f.input :phone, label: t('sections.forms.agent.phone') %>
+    <%= f.input :business, label: t('sections.forms.agent.business') %>
+    <%= f.input :resources, label: t('sections.forms.agent.resources') %>
+    <%= f.input :scale, label: t('sections.forms.agent.scale') %>
+    <%= f.input :members, label: t('sections.forms.agent.members') %>
+    <%= f.input :product, label: t('sections.forms.agent.product') %>
+    <%= f.input :achievement, label: t('sections.forms.agent.achievement') %>
+    <%= f.input :desc, label: t('sections.forms.agent.notes') %>
+    <%= f.button :submit, t('common.submit'), class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <title>Aprove AI</title>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#155eef">
+</head>
+<body class="devise auth-page">
+  <main class="auth-shell">
+    <section class="auth-intro">
+      <div class="auth-brand"><span class="brand-mark">A</span><strong>Aprove</strong> AI</div>
+      <p class="auth-eyebrow">OPEN SOURCE OPERATIONS</p>
+      <h1><%= t('auth.intro_title_html').html_safe %></h1>
+      <p class="auth-copy"><%= t('auth.intro_body') %></p>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="language-switch auth-language" aria-label="<%= t('navigation.language') %>">
+          <%= link_to '中文', switch_locale_path('zh-CN'), class: ('active' if I18n.locale.to_s == 'zh-CN') %>
+          <%= link_to 'EN', switch_locale_path('en'), class: ('active' if I18n.locale.to_s == 'en') %>
+        </div>
+        <p class="auth-eyebrow"><%= t('auth.kicker') %></p>
+        <h2><%= t('auth.title') %></h2>
+        <p><%= t('auth.subtitle') %></p>
+        <%= yield %>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

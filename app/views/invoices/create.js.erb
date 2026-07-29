@@ -1,0 +1,5 @@
+<% if @flag %>
+location.reload();
+<% else %>
+$('#form').replaceWith('<%= j render partial: 'invoices/form', locals: {url: invoices_path} %>')
+<%end %>

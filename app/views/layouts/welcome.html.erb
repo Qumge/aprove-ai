@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <title><%= t('meta.product_name') %> - <%= t('welcome.footer') %></title>
+  <meta name="description" content="<%= t('meta.description') %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101828">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="welcome-page">
+  <%= yield %>
+</body>
+</html>

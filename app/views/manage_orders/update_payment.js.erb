@@ -1,0 +1,8 @@
+<% if @flag %>
+location.reload();
+<% else %>
+$('#form').replaceWith('<%= j render('manage_orders/payment_form')%>')
+hideSpinner();
+<% end %>
+
+

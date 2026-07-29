@@ -1,0 +1,66 @@
+<div class="row" id="sale-list">
+  <div class="col-md-10">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">价格体系</h3>
+        <% if can? :new, :sales %>
+          <small>
+            <%= link_to  '添加价格', new_sale_path, 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'font-a label bg-green', style: 'font-size: 100%' %>
+          </small>
+        <% end %>
+        <div class="pull-right">
+          <% if can? :sale_import, :sales %>
+            <small><%= link_to '批量导入', sale_import_sales_path , class: 'font-a label bg-green', 'data-toggle' => "modal", 'data-target' => "#global-modal" %></small>
+          <% end %>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>产品代码</th>
+            <th>产品名</th>
+            <th>产品型号</th>
+            <th>价格</th>
+            <th></th>
+          </tr>
+          <tr>
+            <% if sales.present? %>
+              <% sales.each do |sale| %>
+              <tr>
+                <td><%= link_to (sale.product&.no).to_s, sale_path(sale), 'data-toggle' => "modal", 'data-target' => "#global-modal" %></td>
+                <td><%= sale.product&.name %></td>
+                <td><%= sale.product&.product_no %></td>
+                <td><%= sale.price %></td>
+                <td>
+                  <% if can? :edit, :sales %>
+                  <%= link_to  edit_sale_path(sale), class: 'label label-success', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                    <%= ui_icon 'pencil' %>编辑
+                  <% end %>
+                  <% end %>
+                  <% if can? :destroy, :sales %>
+                  <%= link_to sale_path(sale), method: :delete, data: {confirm: '确定删除吗？'}, class: 'label label-danger left-20' do %>
+                                      <%= ui_icon 'trash-2' %>删除
+                  <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" align="center">没有可显示的内容</td>
+            </tr>
+          <% end %>
+          </tr>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+        </div>
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

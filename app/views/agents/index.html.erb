@@ -1,0 +1,38 @@
+<%= render 'agents/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.agents.list') %></h3>
+        <% if can? :new, :agents %>
+          <div class="box-header-actions">
+            <%= link_to new_agent_path, class: 'btn btn-primary btn-sm' do %>
+              <%= ui_icon 'plus' %><%= t('sections.agents.apply') %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-tools">
+        <%= form_tag agents_path, method: :get do%>
+          <div class="input-group input-group-sm">
+            <div class="pull-right">
+              <div class="col-xs-6"><%= select_tag :agent_status, options_for_select(localized_options(Agent::STATUS, 'sections.agents.statuses'), params[:agent_status]), include_blank: t('common.all'), class: 'form-control' %></div>
+
+              <div class="col-xs-6"><input type="text" name="table_search" class="form-control" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>"></div>
+            </div>
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div id="records">
+        <%= render 'agents/list' %>
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

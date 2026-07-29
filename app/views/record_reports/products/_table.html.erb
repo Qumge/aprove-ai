@@ -1,0 +1,33 @@
+<div class="box-body">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('sections.reports.time') %></th>
+      <th><%= t('sections.reports.product_category') %></th>
+      <th><%= t('sections.reports.product') %></th>
+      <th><%= t('sections.reports.order_quantity') %></th>
+      <th><%= t('sections.reports.ordered_amount') %></th>
+    </tr>
+    <% if @products_array.present? %>
+      <% @products_array.each do |data| %>
+          <tr>
+            <td><%= data[0] %></td>
+            <td><%= data[1].product_category&.name %></td>
+            <td><%= data[1].name %></td>
+            <td><%= data[2] %></td>
+            <td><%= data[3] %></td>
+          </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5" align="center"><%= t('common.empty') %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+<div class="box-footer clearfix">
+  <div class="pull-right pagination-sm no-margin">
+    <%= paginate @products_array, remote: true, params: params%>
+  </div>
+
+</div>

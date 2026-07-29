@@ -1,0 +1,39 @@
+<div class="modal-header" style="padding:5px; padding-left: 15px;">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="file-modal-label"></h4>
+</div>
+
+<div class="modal-body" >
+  <table class="table">
+    <tbody>
+    <tr>
+      <th>产品代码</th>
+      <td><%= @sale.product&.no %></td>
+    </tr>
+    <tr>
+      <th>产品名</th>
+      <td><%= @sale.product&.name %></td>
+    </tr>
+    <tr>
+      <th>产品型号</th>
+      <td><%= @sale.product&.product_no %></td>
+    </tr>
+    <tr>
+      <th>价格</th>
+      <td><%= @sale.price %>元</td>
+    </tr>
+    <tr>
+      <th>单位</th>
+      <td><%= @sale.product&.unit %></td>
+    </tr>
+    <tr>
+      <th>备注</th>
+      <td><%= @sale.desc %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+</div>

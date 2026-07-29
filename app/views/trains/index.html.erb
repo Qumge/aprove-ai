@@ -1,0 +1,86 @@
+<%= render 'trains/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <%= form_tag trains_path, method: :get do%>
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.training.list') %></h3>
+        <% if can? :new, :trains %>
+          <div class="box-header-actions">
+            <%= link_to new_train_path, class: 'btn btn-primary btn-sm', 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+              <%= ui_icon 'upload' %><%= t('sections.training.upload') %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th><%= t('sections.files.name') %></th>
+            <th><%= t('sections.files.uploaded_at') %></th>
+            <th><%= t('sections.files.uploaded_by') %></th>
+            <th></th>
+          </tr>
+          <% if @trains.present? %>
+            <% @trains.each do |train| %>
+              <tr>
+                <td>
+                  <% if train.action_type == 'link' %>
+                    <a href="<%= train.desc %>">
+                      <%= ui_icon 'eye' %><%= train.name %>
+                    </a>
+                  <% else %>
+                    <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= train.attachment&.preview_url%>" data-file-name="<%= train.attachment&.file_name %>">
+                      <%= ui_icon 'eye' %><%= train.name %>
+                    </a>
+                    <% end %>
+
+                </td>
+                <td><%= simple_time train.updated_at %></td>
+                <td><%= train.user&.name %></td>
+                <td class="table-actions">
+                  <% if can? :edit, :trains %>
+                    <%= link_to edit_train_path(train), class: 'btn btn-default btn-xs table-action', title: t('common.edit'), 'aria-label' => t('common.edit'), 'data-toggle' => "modal", 'data-target' => "#global-modal" do %>
+                      <%= ui_icon 'pencil' %>
+                    <% end %>
+                  <% end %>
+                  <% if can? :destroy, :trains %>
+                    <%= link_to train_path(train), class: 'btn btn-default btn-xs table-action table-action-danger', title: t('common.delete'), 'aria-label' => t('common.delete'), method: 'delete', data: {confirm: t('common.confirm_delete')} do %>
+                      <%= ui_icon 'trash-2' %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" align="center"><%= t('common.empty') %></td>
+            </tr>
+          <% end %>
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @trains, params: {table_search: params[:table_search]}%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

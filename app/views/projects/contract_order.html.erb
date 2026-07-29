@@ -1,0 +1,83 @@
+<%= render 'projects/header' %>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">集采订单
+        </h3>
+      </div>
+      <div id="form">
+
+        <%= simple_form_for(@order, url: do_contract_order_project_path(@project),html: {class: 'form-horizontal group_form'}, wrapper: :horizontal_form) do |f| %>
+          <div class="modal-body" >
+            <div class="form-group row string optional order_desc">
+              <label class="col-sm-3 col-form-label string optional" >项目名</label>
+              <div class="col-sm-9">
+                <%= @project.name %>
+              </div>
+            </div>
+            <%= f.input :factory_id,  as: :select, collection: Factory.all.collect{|p| [p.name, p.id]}  %>
+            <%= f.input :desc %>
+
+            <div>
+              <input class="form-control string required" type="text" id="product_search" style="width:50%" placeholder="输入产品名检索">
+            </div>
+            <div class="form-group row string required product_no">
+              <label class="col-sm-3 col-form-label string required" style="font-size: 16px;" > 产品名</label>
+              <label class="col-sm-3 col-form-label string required" style="font-size: 16px;"> 型号</label>
+              <label class="col-sm-3 col-form-label string required" style="font-size: 16px;"> 合同价</label>
+              <label class="col-sm-3 col-form-label string required" style="font-size: 16px;"> 数量</label>
+
+            </div>
+            <% @project.contract_sales.each do |sale| %>
+              <div class="form-group row string required products">
+                <label class="col-sm-3 col-form-label string required product_name" for="product_<%= sale.product_id %>"> <%= "#{sale.product&.name}" %></label>
+                <label class="col-sm-3 col-form-label string required" for="product_<%= sale.product_id %>"> <%= "#{sale.product&.product_no}" %></label>
+                <label class="col-sm-3 col-form-label string required" for="product_<%= sale.product_id %>"> <%= "#{sale.price}" %></label>
+                <div class="col-sm-3">
+                  <input class="form-control string required" type="number" name="numbers[product_<%= sale.product_id %>]" id="product_<%= sale.product_id %>">
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="modal-footer">
+          <%= button_tag '保存', class: 'btn btn-primary commit', data: { disable_with: '保存中' } %>
+          <%= link_to '返回', project_path(@project), class: 'btn btn-default' %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+      $('#product_search').on('keyup', function(e){
+          var search = $(this).val();
+          $('.products').each(function(e){
+              var that = this;
+              var text = $(this).children('.product_name').first().text();
+              if(text.indexOf(search) >= 0){
+                  $(that).show();
+              }else{
+                  $(that).hide();
+              }
+          })
+      });
+      $('.products').hover(function(e){
+          $('.tr-hover').removeClass('tr-hover');
+          $(this).addClass('tr-hover');
+      })
+
+      $('.commit').click(function(e){
+          if($('#order_factory_id').val()){
+              $('#new_order').submit();
+          }else{
+              alert('订单厂商不能为空');
+          }
+      })
+  });
+</script>
+
+

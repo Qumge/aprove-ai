@@ -1,0 +1,15 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'login-form') do |f| %>
+  <% if alert.present? %><p class="auth-alert"><%= alert %></p><% end %>
+    <div class="form-group">
+      <label class="sr-only" for="login"><%= t('auth.account') %></label>
+      <%= f.text_field :login, autofocus: true, autocomplete: "login", class: 'form-username form-control', placeholder: t('auth.account') %>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="password"><%= t('auth.password') %></label>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-password form-control", placeholder: t('auth.password') %>
+    </div>
+  <p class="auth-help"><%= t('auth.help') %></p>
+  <%= f.submit t('auth.submit'), class: "btn auth-submit" %>
+
+<% end %>
+

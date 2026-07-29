@@ -1,0 +1,51 @@
+<div class="col-md-3" >
+  <div class="box box-default box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title"><%= t('sections.dynamic_reports.fields.order') %></h3>
+      <!-- /.box-tools -->
+
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.no" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.order_number') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.applied_at" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.ordered_at') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.total_price" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.order_amount') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.deliver_amount" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.delivery') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.payment" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.progress_payment') %>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="orders.payment_percent" name="select_columns[]">
+          <%= t('sections.dynamic_reports.fields.payment_percent') %>
+        </label>
+      </div>
+
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="<%= t('sections.reports.product_report') %>">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.time') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.product_category') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.product') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.order_quantity') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('sections.reports.ordered_amount') %></Data></Cell>
+      </Row>
+
+      <% @table_data.each do |data| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= data[0] %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[1].product_category&.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[1].name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[2] %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= data[3] %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

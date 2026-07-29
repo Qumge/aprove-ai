@@ -1,0 +1,38 @@
+
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label"></h4>
+  </div>
+  <div class="modal-body" id="modal-form">
+    <%= render partial: 'projects/form', locals: {project: @project} %>
+  </div>
+
+  <div class="modal-footer">
+    <%= button_tag '保存', class: 'btn btn-primary commit commit', data: { disable_with: '保存中' } %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+  </div>
+</div>
+<script tye="text/javascript">
+    //ajax提交表单
+    $(function(){
+        $('.commit').click(function(){
+            $.ajax({
+                type: "patch",
+                url: '<%= project_path @project %>',
+                data: $('#form form').serialize(),
+                dataType: 'script',
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    //接收后台返回的结果
+                }
+            });
+
+        })
+        $('.select2').select2();
+
+    });
+</script>

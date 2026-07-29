@@ -1,0 +1,2 @@
+module RecordReportsHelper
+end

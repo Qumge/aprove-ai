@@ -1,0 +1,40 @@
+<div id="form">
+  <div class="modal-header" style="padding:5px; padding-left: 15px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="file-modal-label">发货记录</h4>
+  </div>
+    <div class="modal-body" >
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th>发货时间</th>
+          <th>发货金额</th>
+          <th>发货单</th>
+          <th>录入人员</th>
+        </tr>
+        <% @deliver_logs.each do |deliver| %>
+        <tr>
+          <td><%= simple_time deliver.deliver_at %></td>
+          <td><%= deliver.amount %></td>
+          <td>
+            <% if deliver.deliver_file.present? %>
+              <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= deliver.deliver_file.preview_url %>" data-file-name="<%= deliver.deliver_file.file_name %>">
+                <%= ui_icon 'eye' %>发货单
+              </a>
+              <br/>
+            <% end %>
+          </td>
+          <td><%= deliver.user&.name %></td>
+        </tr>
+
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">返回</button>
+  </div>
+</div>
+
+

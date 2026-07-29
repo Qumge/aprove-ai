@@ -1,0 +1,7 @@
+<% if @flag %>
+  $('#global-modal').modal('hide');
+  location.reload();
+<% else %>
+hideSpinner();
+  $('#form').html('<%= j render "/products/form"%>');
+<% end %>

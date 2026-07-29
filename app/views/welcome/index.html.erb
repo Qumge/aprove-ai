@@ -1,0 +1,78 @@
+<header class="welcome-nav">
+  <%= link_to root_path, class: "welcome-brand", aria: { label: t('meta.product_name') } do %>
+    <span class="brand-mark">A</span><strong>Aprove</strong><span>AI</span>
+  <% end %>
+  <nav aria-label="<%= t('welcome.nav.label') %>">
+    <a href="#capabilities"><%= t('welcome.nav.capabilities') %></a>
+    <a href="#open-source"><%= t('welcome.nav.open_source') %></a>
+    <div class="language-switch welcome-language" aria-label="<%= t('navigation.language') %>">
+      <%= link_to '中文', switch_locale_path('zh-CN'), class: ('active' if I18n.locale.to_s == 'zh-CN') %>
+      <%= link_to 'EN', switch_locale_path('en'), class: ('active' if I18n.locale.to_s == 'en') %>
+    </div>
+    <%= link_to new_user_session_path, class: "welcome-login" do %>
+      <%= t('welcome.nav.login') %> <%= ui_icon 'arrow-right' %>
+    <% end %>
+  </nav>
+</header>
+
+<main>
+  <section class="welcome-hero">
+    <div class="welcome-hero-media" aria-hidden="true"></div>
+    <div class="welcome-hero-shade" aria-hidden="true"></div>
+    <div class="welcome-hero-content">
+      <p class="welcome-kicker"><%= t('welcome.hero.kicker') %></p>
+      <h1><%= t('welcome.hero.title_html').html_safe %></h1>
+      <p class="welcome-lead"><%= t('welcome.hero.lead') %></p>
+      <div class="welcome-actions">
+        <%= link_to new_user_session_path, class: "welcome-primary" do %>
+          <%= t('welcome.hero.primary') %> <%= ui_icon 'arrow-right' %>
+        <% end %>
+        <a href="#capabilities" class="welcome-secondary"><%= t('welcome.hero.secondary') %></a>
+      </div>
+    </div>
+    <a class="welcome-scroll" href="#capabilities" aria-label="<%= t('welcome.nav.capabilities') %>">
+      <span><%= t('welcome.hero.scroll') %></span><%= ui_icon 'arrow-down' %>
+    </a>
+  </section>
+
+  <section class="welcome-capabilities" id="capabilities">
+    <div class="welcome-section-heading">
+      <p class="welcome-kicker"><%= t('welcome.capabilities.kicker') %></p>
+      <h2><%= t('welcome.capabilities.title') %></h2>
+      <p><%= t('welcome.capabilities.lead') %></p>
+    </div>
+    <div class="welcome-feature-grid">
+      <article>
+        <span class="welcome-feature-number">01</span>
+        <%= ui_icon 'building-2' %>
+        <h3><%= t('welcome.capabilities.project.title') %></h3>
+        <p><%= t('welcome.capabilities.project.body') %></p>
+      </article>
+      <article>
+        <span class="welcome-feature-number">02</span>
+        <%= ui_icon 'square-check-big' %>
+        <h3><%= t('welcome.capabilities.approval.title') %></h3>
+        <p><%= t('welcome.capabilities.approval.body') %></p>
+      </article>
+      <article>
+        <span class="welcome-feature-number">03</span>
+        <%= ui_icon 'chart-no-axes-combined' %>
+        <h3><%= t('welcome.capabilities.insight.title') %></h3>
+        <p><%= t('welcome.capabilities.insight.body') %></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="welcome-open-source" id="open-source">
+    <div>
+      <p class="welcome-kicker"><%= t('welcome.open_source.kicker') %></p>
+      <h2><%= t('welcome.open_source.title') %></h2>
+    </div>
+    <p><%= t('welcome.open_source.body') %></p>
+  </section>
+</main>
+
+<footer class="welcome-footer">
+  <div class="welcome-brand"><span class="brand-mark">A</span><strong>Aprove</strong><span>AI</span></div>
+  <span><%= t('welcome.footer') %> · <%= Date.current.year %></span>
+</footer>

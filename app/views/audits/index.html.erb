@@ -1,0 +1,135 @@
+<%= render 'audits/header' %>
+<div class="row">
+  <div class="box-body">
+    <div class="row">
+      <% if can? :projects, :audits %>
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h4><%= t('sections.audits.project') %></h4>
+
+            <p style="height: 13px;"></p>
+          </div>
+          <div class="icon">
+            <%= ui_icon 'building-2' %>
+          </div>
+          <%= link_to projects_audits_path, class: 'small-box-footer' do %>
+            <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+      <!-- ./col -->
+      <% if can? :orders, :audits %>
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h4><%= t('sections.audits.sample') %></h4>
+
+            <p style="height: 13px;"></p>
+          </div>
+          <div class="icon">
+            <%= ui_icon 'package-check' %>
+          </div>
+          <%= link_to orders_audits_path, class: 'small-box-footer' do %>
+            <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+      <% if can? :bargains, :audits %>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+          <div class="inner">
+            <h4><%= t('sections.audits.bargain') %></h4>
+
+            <p style="height: 13px;"></p>
+          </div>
+          <div class="icon">
+            <%= ui_icon 'badge-dollar-sign' %>
+          </div>
+          <%= link_to  bargains_audits_path, class: 'small-box-footer' do %>
+            <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+      <% if can? :invoices, :audits %>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h4><%= t('sections.audits.invoice') %></h4>
+
+              <p style="height: 13px;"></p>
+            </div>
+            <div class="icon">
+              <%= ui_icon 'receipt-text' %>
+            </div>
+            <%= link_to  invoices_audits_path, class: 'small-box-footer' do %>
+              <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if can? :agents, :audits %>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-olive">
+          <div class="inner">
+            <h4><%= t('sections.audits.agent') %></h4>
+
+            <p style="height: 13px;"></p>
+          </div>
+          <div class="icon">
+            <%= ui_icon 'user-round-check' %>
+          </div>
+          <%= link_to agents_audits_path, class: 'small-box-footer' do %>
+            <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+      <% if can? :audits, :audits %>
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-purple">
+          <div class="inner">
+            <h4><%= t('sections.audits.history') %></h4>
+
+            <p style="height: 13px;"></p>
+          </div>
+          <div class="icon">
+            <%= ui_icon 'history' %>
+          </div>
+          <%= link_to audits_audits_path, class: 'small-box-footer' do %>
+            <%= t('common.details') %> <%= ui_icon 'arrow-right' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+
+  </div>
+
+  <!-- 初始化按钮 start -->
+  <div class="col-md-12">
+
+  </div>
+  <!-- 初始化按钮 end -->
+
+  <!-- 初始化配置 start -->
+
+
+</div>

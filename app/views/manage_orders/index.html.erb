@@ -1,0 +1,36 @@
+<%= render 'manage_orders/header' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><%= t('sections.orders.list') %></h3>
+
+      </div>
+      <div class="box-tools">
+        <%= form_tag manage_orders_path, method: :get do%>
+          <div class="input-group input-group-sm">
+            <div class="pull-right col-md-3 col-xs-6">
+              <div><%= select_tag :order_status, options_for_select(localized_options(Order::STATUS, 'sections.orders.statuses'), params[:order_status]), include_blank: t('sections.orders.status'), class: 'form-control' %></div>
+            </div>
+            <div class="pull-right col-md-3 col-xs-6">
+            <div><%= select_tag :factory_id, options_for_select(Factory.all.collect{|factory| [factory.name, factory.id]}, params[:factory_id]), include_blank: t('sections.orders.factory'), class: 'form-control' %></div>
+            </div>
+            <div class="pull-right col-md-3 col-xs-6">
+              <div><input type="text" name="table_search" class="form-control" placeholder="<%= t('common.search') %>" value="<%= params[:table_search] %>"></div>
+            </div>
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default icon-button" title="<%= t('common.search') %>"><%= ui_icon 'search' %></button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <!-- /.box-header -->
+      <div id="orders">
+        <%= render 'manage_orders/orders' %>
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>

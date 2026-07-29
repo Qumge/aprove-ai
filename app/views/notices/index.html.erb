@@ -1,0 +1,91 @@
+<%= render 'notices/header' %>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="box box-primary">
+      <div class="box-header ui-sortable-handle" style="cursor: move;">
+        <%= ui_icon 'bell' %>
+
+        <h3 class="box-title">通知消息</h3>
+        <% if can? :check_all, :notices%>
+          <%= link_to '全部已读', '#', onclick: 'check_all()',  class: 'font-a label pull-right bg-primary', style: 'font-size: 100%' %>
+        <% end %>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <ul class="todo-list ui-sortable">
+          <% if @notices.present? %>
+            <% @notices.each do |notice| %>
+              <%= render partial: 'notices/notice_li', locals: {notice: notice} %>
+            <% end %>
+          <% else %>
+            <li>
+              无通知消息
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <!-- /.box-body -->
+      <div class="box-footer clearfix">
+        <div class="pull-right pagination-sm no-margin">
+          <%= paginate @notices%>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+<style>
+  .notice_span:hover
+  {
+    cursor: pointer
+  }
+</style>
+<script type="text/javascript">
+  function check_notice(id, type){
+      showSpinner();
+      $.ajax({
+          type: "POST",
+          url: '<%= check_notices_path %>',
+          data: {id: id, type: type},
+          dataType: 'script',
+          async: false,
+          error: function(request) {
+              alert("Connection error");
+          },
+          success: function(data) {
+              //接收后台返回的结果
+          }
+      });
+  }
+
+  function check_all(){
+      showSpinner();
+      $.ajax({
+          type: "POST",
+          url: '<%= check_all_notices_path %>',
+          data: {},
+          dataType: 'script',
+          async: false,
+          error: function(request) {
+              alert("Connection error");
+          },
+          success: function(data) {
+              //接收后台返回的结果
+          }
+      });
+  }
+
+  function redirect_notice(id, path){
+      check_notice(id, 'view');
+      window.location.href = path;
+  }
+  $(function(){
+      $('.notice_check').click(function(e){
+          showSpinner();
+          check_notice($(this).val(), 'check');
+      });
+
+  });
+</script>

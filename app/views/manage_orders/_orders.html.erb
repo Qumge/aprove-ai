@@ -1,0 +1,106 @@
+
+  <style>
+    .btn {
+      padding: 0;
+    }
+  </style>
+  <div class="box-body" style="overflow-x: scroll">
+    <table class="table table-bordered">
+      <tr>
+        <th><%= t('sections.orders.columns.project') %></th>
+        <th><%= t('sections.orders.columns.number') %></th>
+        <th><%= t('sections.orders.columns.factory') %></th>
+        <th><%= t('sections.orders.columns.applicant') %></th>
+        <th><%= t('sections.orders.columns.ordered_at') %></th>
+        <th><%= t('sections.orders.columns.signed_at') %></th>
+        <th><%= t('sections.orders.columns.funded_at') %></th>
+        <th><%= t('sections.orders.columns.delivery_amount') %></th>
+        <th><%= t('sections.orders.columns.payment_amount') %></th>
+        <th><%= t('sections.orders.columns.type') %></th>
+        <th><%= t('sections.orders.columns.status') %></th>
+        <th></th>
+      </tr>
+      <% if @orders.present? %>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= link_to order.project.name, project_path(order.project) %></td>
+            <td>
+              <%= link_to order.no, manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal" %>
+            </td>
+            <td><%= order.factory&.name %></td>
+            <td><%= order.user&.name %></td>
+            <td><%= simple_time order.apply_at %></td>
+            <td><%= simple_time order.sign_log&.sign_at %></td>
+            <td><%= simple_time order.fund_log&.fund_at %></td>
+            <td>
+              <% if can?(:deliver_logs, :manage_orders) %>
+                <%= link_to deliver_logs_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= order.deliver_amount %>
+                <% end %>
+              <% else %>
+                <%= order.deliver_amount %>
+              <% end %>
+            </td>
+            <td>
+              <% if can?(:payment_logs, :manage_orders) %>
+                <%= link_to payment_logs_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                 <%= order.payment %>
+                <% end %>
+                <% else %>
+                <%= order.payment %>
+              <% end %>
+            </td>
+            <td><%= t("sections.orders.types.#{order.order_type}", default: order.get_order_type) %></td>
+            <td><%= t("sections.orders.statuses.#{order.order_status}", default: order.get_status) %></td>
+
+            <td align="center">
+              <% if can?(:edit_deliver, :manage_orders) && (order.active? || order.deliver? || order.sign? || order.fund?) %>
+                <%= link_to edit_deliver_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= ui_icon 'send' %><%= t('sections.orders.actions.deliver') %>
+                <% end %>
+              <% end %>
+              
+              <% if can?(:edit_sign, :manage_orders) && (order.deliver? || order.sign? || order.fund?) %>
+                <%= link_to edit_sign_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= ui_icon 'pencil' %><%= t('sections.orders.actions.sign') %>
+                <% end %>
+              <% end %>
+
+              <% if can?(:edit_fund, :manage_orders) && (order.sign? || order.fund?) %>
+                <%= link_to edit_fund_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= ui_icon 'file-text' %><%= t('sections.orders.actions.funding') %>
+                <% end %>
+              <% end %>
+
+              <% if can?(:edit_payment, :manage_orders) && (order.deliver? || order.sign? || order.fund?) %>
+                <%= link_to edit_payment_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= ui_icon 'badge-dollar-sign' %><%= t('sections.orders.actions.payment') %>
+                <% end %>
+              <% end %>
+
+              <% if can?(:deliver_message, :manage_orders) && (order.deliver? || order.sign? || order.fund?) %>
+                <%= link_to deliver_message_manage_order_path(order), 'data-toggle' => "modal", 'data-target' => "#global-modal", class: 'btn  btn-sm' do %>
+                  <%= ui_icon 'send' %><%= t('sections.orders.actions.remind') %>
+                <% end %>
+              <% end %>
+
+
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="11" align="center"><%= t('common.empty') %></td>
+        </tr>
+      <% end %>
+
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer clearfix">
+    <div class="pull-right pagination-sm no-margin">
+      <%= paginate @orders, remote: true, params: {order_status: params[:order_status], table_search: params[:table_search]} %>
+    </div>
+
+  </div>
+</div>

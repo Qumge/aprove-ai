@@ -1,0 +1,99 @@
+<%= render 'record_reports/header' %>
+<div class="nav-tabs-custom">
+  <% if can? :all, :record_reports %>
+  <ul class="nav nav-tabs">
+    <li class="<%= 'active' if params[:organization_id].blank?%>"><%= link_to t('common.all'), record_reports_path %></li>
+    <% Organization.regional_organization.each do |org| %>
+      <li class="<%= 'active' if params[:organization_id].to_i == org.id %>"><%= link_to org.name, record_reports_path(organization_id: org.id) %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_1">
+      <div class="row">
+        <div class="box-body">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-aqua" style="font-size: 20px;"><%= t('sections.reports.order') %></span>
+              <%= link_to orders_record_reports_path(organization_id: params[:organization_id]), style: 'color' do %>
+              <div class="info-box-content" style="padding-top: 20px;color: #333333">
+                <span class="info-box-text"><%= t('sections.reports.day') %>: <%= @orders_pie_data[0] %></span>
+                <span class="info-box-number"><%= t('sections.reports.month') %>: <%= @order_month_amounts %></span>
+              </div>
+                <% end %>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-yellow" style="font-size: 20px;"><%= t('sections.reports.delivery') %></span>
+              <%= link_to orders_record_reports_path(organization_id: params[:organization_id]), style: 'color' do %>
+              <div class="info-box-content" style="padding-top: 20px;color: #333333">
+                <span class="info-box-text"><%= t('sections.reports.day') %>: <%= @orders_pie_data[1] %></span>
+                <span class="info-box-number"><%= t('sections.reports.month') %>: <%= @deliver_month_amounts %></span>
+              </div>
+              <% end %>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box" >
+              <span class="info-box-icon bg-green" style="font-size: 20px;"><%= t('sections.reports.payment') %></span>
+              <%= link_to orders_record_reports_path(organization_id: params[:organization_id]), style: 'color' do %>
+              <div class="info-box-content" style="padding-top: 20px;color: #333333">
+                <span class="info-box-text"><%= t('sections.reports.day') %>: <%= @orders_pie_data[2] %></span>
+                <span class="info-box-number"><%= t('sections.reports.month') %>: <%= @payment_month_amounts %></span>
+              </div>
+              <% end %>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-red" style="font-size: 20px;"><%= t('sections.reports.receivable') %></span>
+
+              <div class="info-box-content" style="padding-top: 30px;">
+                <span class="info-box-number"><%= @need_payment_amounts.round(2) %></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <!-- /.box-header -->
+          <div class="box-body">
+      <!--      <div class="col-md-6">-->
+             <%#= render 'record_reports/orders/pie' %>
+      <!--      </div>-->
+      <!--      <div class="col-md-6">-->
+              <%#= render 'record_reports/projects/category_pie' %>
+      <!--      </div>-->
+      <!--      <div class="col-md-6">-->
+              <%#= render 'record_reports/projects/projects_pie' %>
+      <!--      </div>-->
+            <div class="col-md-6">
+              <%= render 'record_reports/products/pie' %>
+            </div>
+      <!--      <div class="col-md-6">-->
+              <%#= render 'record_reports/users/pie' %>
+      <!--      </div>-->
+            <div class="col-md-6">
+              <%= render 'record_reports/users/cost' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.tab-pane -->
+    <!-- /.tab-pane -->
+  </div>
+  <!-- /.tab-content -->
+</div>

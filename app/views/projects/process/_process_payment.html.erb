@@ -1,0 +1,46 @@
+<li class="time-label">
+                  <span class="bg-purple">
+                    进度款
+                  </span>
+</li>
+
+<li>
+  <span class="timeline-icon bg-green"><%= ui_icon 'file-text' %></span>
+
+  <div class="timeline-item">
+    <div class="form-group">
+
+    </div>
+    <div class="timeline-body">
+      <label for="exampleInputFile">进度款资料</label>
+      <div >
+        <% if can? :upload, :projects %>
+        <% if @project.can_do? :process_payment %>
+        <a class="btn btn-xs bg-blue" id="payments" href="#" >
+          <%= ui_icon 'plus' %>
+          <span>选择文件</span>
+        </a>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if @project.payments.present? %>
+        <% @project.payments.each do |payment| %>
+          <div>
+          <a href="javascript:void(0)" onclick="show_file(this)" class="btn show-file" data-url="<%= payment.preview_url%>" data-file-name="<%= payment.file_name %>">
+            <%= ui_icon 'eye' %><%= show_file_name '进度款资料', payment %>
+          </a>
+            <% if can? :delete_attachment, :projects %>
+            <%= link_to '删除', 'JavaScript:void(0)', onclick: "delete_attachment(#{payment.id}, '#{delete_attachment_project_path @project.id}')",class: 'btn  btn-sm ', style: 'color: red' if @project.can_do? :process_payment %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if can? :step_event, :projects %>
+        <div style="text-align: right">
+          <%= link_to '下一步', 'JavaScript:void(0)', onclick: "step_event('done_process_payment')",class: 'btn  btn-success btn-sm' if @project.can_do_next? :process_payment %>
+        </div>
+        <%end %>
+      <% end %>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,38 @@
+<div id="agents">
+  <div class="box-body">
+    <table class="table table-bordered">
+      <tr>
+        <th><%= t('sections.agents.columns.company') %></th>
+        <th><%= t('sections.agents.columns.name') %></th>
+        <th><%= t('sections.agents.columns.phone') %></th>
+        <th><%= t('sections.agents.columns.applicant') %></th>
+        <th><%= t('sections.agents.columns.status') %></th>
+      </tr>
+      <% if @agents.present? %>
+        <% @agents.each do |agent| %>
+          <tr>
+            <td>
+              <%= link_to agent.name, agent_path(agent), 'data-toggle' => "modal", 'data-target' => "#global-modal"%>
+            </td>
+            <td><%= agent.username %></td>
+            <td><%= agent.phone %></td>
+            <td><%= agent.apply_user&.name %></td>
+          <td><%= t("sections.agents.statuses.#{agent.agent_status}", default: agent.get_status) %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="5" align="center"><%= t('common.empty') %></td>
+        </tr>
+      <% end %>
+
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer clearfix">
+    <div class="pull-right pagination-sm no-margin">
+      <%= paginate @agents, remote: true, params: {agent_status: params[:agent_status], table_search: params[:table_search]} %>
+    </div>
+
+  </div>
+</div>

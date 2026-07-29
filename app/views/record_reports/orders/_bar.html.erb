@@ -1,0 +1,26 @@
+<div class="box box-danger">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+    </h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="collapse" title="<%= t('common.close') %>"><%= ui_icon 'minus' %>
+      </button>
+      <button type="button" class="btn btn-box-tool icon-button" data-widget="remove" title="<%= t('common.close') %>"><%= ui_icon 'x' %></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <canvas id="orders_bar" style="height:250px"></canvas>
+  </div>
+  <div id="table">
+    <%= render 'record_reports/orders/table' %>
+  </div>
+  <!-- /.box-body -->
+</div>
+
+<script type="text/javascript">
+    var barChart;
+    $(function(){
+        barChart = barChat('orders_bar', <%= raw @orders_bar_labels %>, <%= raw @orders_bar_bars %>, <%= raw @orders_bar_data %>);
+    });
+</script>

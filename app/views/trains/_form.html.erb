@@ -1,0 +1,123 @@
+<div id="form" class="upload-resource-modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="file-modal-label">
+      <%= t(@train.persisted? ? 'sections.training.edit' : 'sections.training.add') %>
+    </h4>
+    <button type="button" class="close modal-close icon-button" data-dismiss="modal" aria-label="<%= t('common.close') %>" title="<%= t('common.close') %>">
+      <%= ui_icon 'x' %>
+    </button>
+  </div>
+  <%= simple_form_for(@train, html: {class: 'form-horizontal group_form', onkeydown: "if(event.keyCode==13)return false;"}, wrapper: :horizontal_form) do |f| %>
+    <div class="modal-body" >
+      <%= f.input :name %>
+      <div class="form-group row string optional train_attachment">
+        <label class="col-sm-3 col-form-label string optional" for="train_attachment"><%= t('sections.forms.upload.file') %></label>
+        <div class="col-sm-9 upload-picker">
+          <a class="btn btn-default upload-picker-button" id="train_attachment" href="#">
+            <%= ui_icon 'upload' %>
+            <span><%= t('sections.forms.upload.choose') %></span>
+          </a>
+          <span id="filename" class="upload-file-status"><%= t('common.no_file_selected') %></span>
+          <small class="upload-hint"><%= t('common.max_file_size') %></small>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('common.cancel') %></button>
+    <%= button_tag class: 'btn btn-primary commit', type: 'button', disabled: true, data: { disable_with: t('common.saving') } do %>
+      <%= ui_icon 'upload' %><%= t('common.save') %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function set_option(name){
+        return {
+            runtimes: 'html5,html4',          //上传模式,依次退化
+            browse_button: name,       //上传选择的点选按钮，**必需**
+            unique_names: false,
+            // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
+            save_key: false,
+            //bucket 域名，下载资源时用到，**必需**
+            // container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
+            max_file_size: '150mb',           //最大文件体积限制
+            // flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+            max_retries: 3,                   //上传失败最大重试次数
+            // dragdrop: true,                   //开启可拖曳上传
+            // drop_element: 'container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+            chunk_size: '4mb',                //分块上传时，每片的体积
+            auto_start: false,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            // filters: [
+            //     {title: "files", extensions: "xls,xslx,doc,docx,pdf,png,jpg,jpeg,gif,bmp"}
+            // ],
+            init: {
+                'FilesAdded': function (up, files) {
+                    plupload.each(files, function (file) {
+                        // 文件添加进队列后,处理相关的事情
+                        $('#filename').text(file.name);
+                        $('.upload-picker').addClass('is-selected');
+                        $('.commit').prop('disabled', false);
+                    });
+                },
+                'BeforeUpload': function (up, file) {
+                    showSpinner();
+                    // 加载loading
+                    // 每个文件上传前,处理相关的事情
+                },
+                'UploadProgress': function (up, file) {
+                    // 每个文件上传时,处理相关的事情
+                },
+                'FileUploaded': function (up, file, info) {
+                    // 每个文件上传成功后,处理相关的事情
+                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    console.log(info);
+                    var res = $.parseJSON(info.response);
+                    // var res = parseJSON(info);
+                    // 提交到服务器
+                    // console.log(info);
+                    $.ajax({
+                        type: '<%= @train.id.present? ? 'PATCH' : 'POST' %>',
+                        url: '<%= @train.id.present? ? train_path(@train) : trains_path  %>',
+                        data: {path: res.key, file_name: file.name, name: name, train_name: $('#train_name').val()},
+                        dataType: 'script',
+                        success: function (data) {
+
+                        }
+                    })
+                },
+                'Error': function (up, err, errTip) {
+                    //上传出错时,处理相关的事情
+                    console.log(err);
+                    alert(err.message);
+                },
+                'UploadComplete': function () {
+                    //队列文件处理完毕后,处理相关的事情
+                    console.log('complete')
+                },
+                'Key': function (up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                    var key = '<%= SecureRandom.uuid %>'  + '.' + file.name.split('.').pop();
+                    // do something with key here
+                    return key
+                }
+            }
+        }
+    }
+    $(function(){
+        var option = set_option('train_attachment');
+        var uploader = new StorageUploader(option);
+
+        $('.commit').click(function(){
+            uploader.start();
+        });
+        setTimeout(function(){ uploader.refresh(); }, 1000);
+    });
+</script>

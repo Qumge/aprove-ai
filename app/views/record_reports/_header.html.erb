@@ -1,0 +1,15 @@
+<% content_for :content_header do %>
+  <h1>
+    <%= t('sections.reports.title') %>
+    <small><%= get_title params %></small>
+
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <%=link_to record_reports_path do %>
+        <%= ui_icon 'layout-dashboard' %> <%= t('sections.reports.title') %>
+      <% end %>
+    </li>
+    <li class="active"><%= get_title params %></li>
+  </ol>
+<% end %>
