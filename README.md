@@ -25,8 +25,8 @@ reports into one workspace.
 ## Setup
 
 ```bash
-git clone https://github.com/Qumge/approve-ai.git
-cd approve-ai
+git clone https://github.com/Qumge/aprove-ai.git
+cd aprove-ai
 bundle install
 bin/rails db:prepare
 bin/rails db:seed

@@ -22,8 +22,8 @@ the maintainers.
 ### Setup
 
 ```bash
-git clone https://github.com/Qumge/approve-ai.git
-cd approve-ai
+git clone https://github.com/Qumge/aprove-ai.git
+cd aprove-ai
 bin/setup            # installs gems and prepares the database
 bin/rails server
 ```
