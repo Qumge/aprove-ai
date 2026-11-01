@@ -1,3 +1,5 @@
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 # Aprove AI
 
 A bilingual, open-source project operations platform built with Ruby on Rails.
@@ -5,6 +7,17 @@ It brings projects, approvals, orders, invoices, partners, expenses, files, and
 reports into one workspace.
 
 中文：Aprove AI 是一个支持中英文界面的开源项目运营与审批平台。
+
+## Only need one file task? Use your Agent
+
+Reconcile order, delivery and payment CSV/XLSX files through an explicit cutoff date. Get discrepancies, unmatched records and totals separated by currency, with source row references.
+
+This optional companion capability is operated by Qumge. **You do not need to install this project.** Your Agent checks the current live contract and price, uploads your authorized files, calls the Cap with spending permission, and returns private Excel and JSON reports.
+
+- [Task guide, limits and availability](https://qumge.com/en/docs/industrial)
+- [Synthetic examples and Agent instructions](docs/capability.en.md) · [中文任务说明](docs/capability.zh-CN.md)
+
+The self-hosted application remains MIT-licensed and works independently. It never automatically sends your company data to Qumge. Hosted Caps have separate published per-result prices; reports expire after 24 hours. A README example is not evidence of a live listing or paid delivery.
 
 ## Features
 
